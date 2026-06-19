@@ -22,45 +22,111 @@
       overflow: hidden;
     }
 
-    /* COEUR BOUTON */
-    .heart-btn {
-      font-size: 6rem;
+    /* CŒUR “LIVRE” */
+    .book {
+      position: relative;
+      width: 160px;
+      height: 140px;
       cursor: pointer;
-      transition: transform 0.3s;
-      user-select: none;
+      transform-style: preserve-3d;
+      transition: transform 1s ease;
     }
 
-    .heart-btn:hover {
-      transform: scale(1.1);
-    }
-
-    /* POPUP */
-    .card {
+    /* forme cœur réaliste */
+    .heart {
       position: absolute;
-      background: rgba(255, 255, 255, 0.8);
-      backdrop-filter: blur(6px);
-      padding: 30px 20px;
-      border-radius: 20px;
-      text-align: center;
-      display: none;
-      max-width: 90%;
-      box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+      width: 100%;
+      height: 100%;
+      background: #ff3b6b;
+      transform: rotate(-45deg);
+      border-radius: 10px;
     }
 
-    .card h1 {
-      font-size: 1.6rem;
-      margin-bottom: 20px;
+    .heart::before,
+    .heart::after {
+      content: "";
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      background: #ff3b6b;
+      border-radius: 50%;
+    }
+
+    .heart::before {
+      top: -50%;
+      left: 0;
+    }
+
+    .heart::after {
+      left: 50%;
+      top: 0;
+    }
+
+    /* effet ouverture */
+    .book.open {
+      transform: scale(0.9) rotateX(20deg);
+    }
+
+    .book.open .left {
+      transform: rotateY(-120deg);
+    }
+
+    .book.open .right {
+      transform: rotateY(120deg);
+    }
+
+    /* pages du livre */
+    .page {
+      position: absolute;
+      width: 50%;
+      height: 100%;
+      top: 0;
+      background: rgba(255,255,255,0.9);
+      backface-visibility: hidden;
+      transition: transform 1s ease;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      padding: 10px;
+      box-sizing: border-box;
+      font-size: 1.2rem;
+    }
+
+    .left {
+      left: 0;
+      border-radius: 80px 0 0 80px;
+      transform-origin: right;
+    }
+
+    .right {
+      right: 0;
+      border-radius: 0 80px 80px 0;
+      transform-origin: left;
+    }
+
+    /* contenu caché au début */
+    .content {
+      position: absolute;
+      opacity: 0;
+      transition: opacity 0.5s ease 0.6s;
+      width: 90%;
+      text-align: center;
+    }
+
+    .book.open .content {
+      opacity: 1;
     }
 
     button {
-      padding: 12px 20px;
+      margin-top: 15px;
+      padding: 10px 18px;
       border: none;
       border-radius: 12px;
       cursor: pointer;
       font-size: 1rem;
       background: #ff6b9a;
       color: white;
-      transition: 0.3s;
     }
 
     button:hover {
@@ -71,21 +137,30 @@
 
 <body>
 
-  <!-- COEUR CLIQUABLE -->
-  <div class="heart-btn" onclick="openCard()">❤️</div>
+  <div class="book" onclick="openBook(this)">
+    
+    <div class="heart"></div>
 
-  <!-- CARTE -->
-  <div class="card" id="card">
-    <h1>Veux-tu sortir avec moi à nouveau ? 💖</h1>
+    <div class="page left"></div>
+    <div class="page right"></div>
 
-    <button onclick="alert('Je suis trop heureux ❤️')">
-      Bien sûr ❤️
-    </button>
+    <div class="content">
+      <div>
+        <div style="font-size:1.3rem; margin-bottom:10px;">
+          Veux-tu sortir avec moi à nouveau ? 💖
+        </div>
+
+        <button onclick="alert('Je suis tellement heureux ❤️')">
+          Bien sûr ❤️
+        </button>
+      </div>
+    </div>
+
   </div>
 
   <script>
-    function openCard() {
-      document.getElementById("card").style.display = "block";
+    function openBook(el) {
+      el.classList.toggle("open");
     }
   </script>
 
