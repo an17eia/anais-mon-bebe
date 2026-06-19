@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>💖</title>
+
+  <style>
+    body {
+      margin: 0;
+      height: 100vh;
+      overflow: hidden;
+      background: #ffb6c1;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-family: Arial, sans-serif;
+    }
+
+    h1 {
+      position: relative;
+      z-index: 10;
+      font-size: 2rem;
+      text-align: center;
+      color: white;
+      padding: 20px;
+    }
+
+    /* COEURS */
+    .heart {
+      position: absolute;
+      top: -50px;
+      font-size: 24px;
+      animation: fall linear forwards;
+      opacity: 0.9;
+    }
+
+    @keyframes fall {
+      0% {
+        transform: translateY(0);
+        opacity: 1;
+      }
+      100% {
+        transform: translateY(110vh);
+        opacity: 0;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <h1>Je t’aime ❤️</h1>
+
+  <script>
+    function createHeart() {
+      const heart = document.createElement("div");
+      heart.classList.add("heart");
+      heart.innerText = "❤️";
+
+      heart.style.left = Math.random() * 100 + "vw";
+      heart.style.fontSize = (Math.random() * 20 + 10) + "px";
+      heart.style.animationDuration = (Math.random() * 2 + 2) + "s";
+
+      document.body.appendChild(heart);
+
+      setTimeout(() => {
+        heart.remove();
+      }, 4000);
+    }
+
+    // lancer les coeurs en boucle
+    setInterval(createHeart, 200);
+  </script>
+
+</body>
+</html>
