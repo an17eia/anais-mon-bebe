@@ -16,32 +16,43 @@
       background: url('photo2.jpg') center/cover no-repeat;
       min-height: 100vh;
 
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      align-items: center;
+
+      padding: 30px 0;
+
       overflow-x: hidden;
     }
 
-    .card {
-      position: relative;
-      top: 180px; /* 👈 ICI on baisse la carte */
-
-      margin: 0 auto;
-
+    /* CARTE DU HAUT */
+    .top-card {
       background: rgba(255, 255, 255, 0.75);
       backdrop-filter: blur(6px);
-      padding: 30px 20px;
+      padding: 15px 20px;
+      border-radius: 15px;
+      text-align: center;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+    }
+
+    .top-card h1 {
+      font-size: 1.8rem;
+      margin: 0;
+    }
+
+    /* CARTE DU BAS */
+    .bottom-card {
+      background: rgba(255, 255, 255, 0.75);
+      backdrop-filter: blur(6px);
+      padding: 25px 20px;
       border-radius: 20px;
       text-align: center;
       max-width: 90%;
-      width: fit-content;
-
       box-shadow: 0 10px 30px rgba(0,0,0,0.2);
     }
 
-    h1 {
-      font-size: clamp(2rem, 6vw, 4rem);
-      margin-bottom: 15px;
-    }
-
-    p {
+    .bottom-card p {
       font-size: 1.4rem;
       margin-bottom: 20px;
     }
@@ -65,14 +76,20 @@
 
 <body>
 
-  <div class="card">
+  <!-- CARTE HAUT -->
+  <div class="top-card">
     <h1>Anaïs mon bébé ❤️</h1>
+  </div>
+
+  <!-- CARTE BAS -->
+  <div class="bottom-card">
 
     <p>J'ai fait quelque chose pour te montrer à quel point je tiens à toi.</p>
 
     <button onclick="window.location.href='page2.html'">
-      Continuer
+      Si tu m’aimes appuie ici
     </button>
+
   </div>
 
 </body>
