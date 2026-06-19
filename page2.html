@@ -14,7 +14,6 @@
       height: 100vh;
       font-family: 'Playfair Display', serif;
 
-      background: url('photo2.jpg') center/cover no-repeat;
       display: flex;
       justify-content: center;
       align-items: center;
@@ -22,57 +21,81 @@
       overflow: hidden;
     }
 
-    /* COEUR */
+    /* fond flou propre */
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      background: url('photo2.jpg') center/cover no-repeat;
+      filter: blur(7px);
+      transform: scale(1.1);
+      z-index: -1;
+    }
+
+    /* cœur propre */
     .heart {
-      width: 120px;
-      height: 120px;
-      background: #ff3b6b;
+      width: 130px;
+      height: 130px;
+      background: #ff2f6d;
       position: relative;
       transform: rotate(-45deg);
       cursor: pointer;
       transition: transform 0.3s ease;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.3);
     }
 
     .heart:hover {
-      transform: rotate(-45deg) scale(1.1);
+      transform: rotate(-45deg) scale(1.08);
     }
 
     .heart::before,
     .heart::after {
       content: "";
       position: absolute;
-      width: 120px;
-      height: 120px;
-      background: #ff3b6b;
+      width: 130px;
+      height: 130px;
+      background: #ff2f6d;
       border-radius: 50%;
     }
 
     .heart::before {
-      top: -60px;
+      top: -65px;
       left: 0;
     }
 
     .heart::after {
-      left: 60px;
+      left: 65px;
       top: 0;
     }
 
-    /* CARTE */
+    /* carte */
     .card {
       position: absolute;
       background: rgba(255,255,255,0.85);
-      backdrop-filter: blur(6px);
-      padding: 25px 20px;
+      backdrop-filter: blur(8px);
+      padding: 30px 25px;
       border-radius: 20px;
       text-align: center;
       max-width: 90%;
-      box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+      width: 320px;
 
-      display: none;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.25);
+
+      opacity: 0;
+      transform: scale(0.8);
+      pointer-events: none;
+
+      transition: 0.5s ease;
+    }
+
+    .card.show {
+      opacity: 1;
+      transform: scale(1);
+      pointer-events: auto;
     }
 
     .card h1 {
-      font-size: 1.5rem;
+      font-size: 1.4rem;
       margin-bottom: 20px;
     }
 
@@ -89,13 +112,18 @@
     button:hover {
       transform: scale(1.05);
     }
+
+    /* cacher le cœur quand carte ouverte */
+    .hide {
+      display: none;
+    }
   </style>
 </head>
 
 <body>
 
   <!-- COEUR -->
-  <div class="heart" onclick="openCard()"></div>
+  <div class="heart" id="heart" onclick="openCard()"></div>
 
   <!-- CARTE -->
   <div class="card" id="card">
@@ -108,7 +136,8 @@
 
   <script>
     function openCard() {
-      document.getElementById("card").style.display = "block";
+      document.getElementById("card").classList.add("show");
+      document.getElementById("heart").classList.add("hide");
     }
   </script>
 
