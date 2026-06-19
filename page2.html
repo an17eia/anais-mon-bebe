@@ -3,74 +3,90 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
   <title>💖</title>
+
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&display=swap" rel="stylesheet">
 
   <style>
     body {
       margin: 0;
       height: 100vh;
-      overflow: hidden;
-      background: #ffb6c1;
+      font-family: 'Playfair Display', serif;
+
+      background: url('photo2.jpg') center/cover no-repeat;
       display: flex;
       justify-content: center;
       align-items: center;
-      font-family: Arial, sans-serif;
+
+      overflow: hidden;
     }
 
-    h1 {
-      position: relative;
-      z-index: 10;
-      font-size: 2rem;
-      text-align: center;
-      color: white;
-      padding: 20px;
+    /* COEUR BOUTON */
+    .heart-btn {
+      font-size: 6rem;
+      cursor: pointer;
+      transition: transform 0.3s;
+      user-select: none;
     }
 
-    /* COEURS */
-    .heart {
+    .heart-btn:hover {
+      transform: scale(1.1);
+    }
+
+    /* POPUP */
+    .card {
       position: absolute;
-      top: -50px;
-      font-size: 24px;
-      animation: fall linear forwards;
-      opacity: 0.9;
+      background: rgba(255, 255, 255, 0.8);
+      backdrop-filter: blur(6px);
+      padding: 30px 20px;
+      border-radius: 20px;
+      text-align: center;
+      display: none;
+      max-width: 90%;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.2);
     }
 
-    @keyframes fall {
-      0% {
-        transform: translateY(0);
-        opacity: 1;
-      }
-      100% {
-        transform: translateY(110vh);
-        opacity: 0;
-      }
+    .card h1 {
+      font-size: 1.6rem;
+      margin-bottom: 20px;
+    }
+
+    button {
+      padding: 12px 20px;
+      border: none;
+      border-radius: 12px;
+      cursor: pointer;
+      font-size: 1rem;
+      background: #ff6b9a;
+      color: white;
+      transition: 0.3s;
+    }
+
+    button:hover {
+      transform: scale(1.05);
     }
   </style>
 </head>
 
 <body>
 
-  <h1>Je t’aime ❤️</h1>
+  <!-- COEUR CLIQUABLE -->
+  <div class="heart-btn" onclick="openCard()">❤️</div>
+
+  <!-- CARTE -->
+  <div class="card" id="card">
+    <h1>Veux-tu sortir avec moi à nouveau ? 💖</h1>
+
+    <button onclick="alert('Je suis trop heureux ❤️')">
+      Bien sûr ❤️
+    </button>
+  </div>
 
   <script>
-    function createHeart() {
-      const heart = document.createElement("div");
-      heart.classList.add("heart");
-      heart.innerText = "❤️";
-
-      heart.style.left = Math.random() * 100 + "vw";
-      heart.style.fontSize = (Math.random() * 20 + 10) + "px";
-      heart.style.animationDuration = (Math.random() * 2 + 2) + "s";
-
-      document.body.appendChild(heart);
-
-      setTimeout(() => {
-        heart.remove();
-      }, 4000);
+    function openCard() {
+      document.getElementById("card").style.display = "block";
     }
-
-    // lancer les coeurs en boucle
-    setInterval(createHeart, 200);
   </script>
 
 </body>
