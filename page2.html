@@ -23,36 +23,66 @@
       overflow: hidden;
     }
 
-    /* LIVRE */
+    /* LIVRE EN FORME DE COEUR */
     .book {
       position: relative;
-      width: 320px;
-      height: 220px;
+      width: 260px;
+      height: 240px;
       transform-style: preserve-3d;
       cursor: pointer;
     }
 
-    /* COUVERTURE GAUCHE */
-    .cover-left, .cover-right {
+    /* COEUR DE BASE (forme globale) */
+    .heart-base {
       position: absolute;
-      width: 50%;
+      width: 100%;
       height: 100%;
-      top: 0;
-      background: rgba(255,255,255,0.9);
+      background: #ff2f6d;
+      transform: rotate(-45deg);
+      border-radius: 20px;
       box-shadow: 0 10px 30px rgba(0,0,0,0.3);
-      backface-visibility: hidden;
-      transition: transform 1s ease;
     }
 
-    .cover-left {
+    .heart-base::before,
+    .heart-base::after {
+      content: "";
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      background: #ff2f6d;
+      border-radius: 50%;
+    }
+
+    .heart-base::before {
+      top: -50%;
       left: 0;
-      border-radius: 20px 0 0 20px;
+    }
+
+    .heart-base::after {
+      left: 50%;
+      top: 0;
+    }
+
+    /* PARTIE GAUCHE / DROITE QUI S'OUVRENT */
+    .left, .right {
+      position: absolute;
+      top: 0;
+      width: 50%;
+      height: 100%;
+      background: rgba(255,255,255,0.92);
+      transition: transform 1s ease;
+      backface-visibility: hidden;
+    }
+
+    .left {
+      left: 0;
+      border-radius: 120px 0 0 120px;
       transform-origin: left;
     }
 
-    .cover-right {
+    .right {
       right: 0;
-      border-radius: 0 20px 20px 0;
+      border-radius: 0 120px 120px 0;
       transform-origin: right;
     }
 
@@ -69,6 +99,8 @@
 
       opacity: 0;
       transition: opacity 0.5s ease 0.6s;
+      padding: 20px;
+      box-sizing: border-box;
     }
 
     .content h1 {
@@ -90,12 +122,12 @@
       transform: scale(1.05);
     }
 
-    /* OPEN STATE */
-    .book.open .cover-left {
+    /* OUVERTURE */
+    .book.open .left {
       transform: rotateY(-120deg);
     }
 
-    .book.open .cover-right {
+    .book.open .right {
       transform: rotateY(120deg);
     }
 
@@ -110,13 +142,18 @@
 
   <div class="book" onclick="this.classList.add('open')">
 
-    <div class="cover-left"></div>
-    <div class="cover-right"></div>
+    <!-- COEUR VISUEL -->
+    <div class="heart-base"></div>
 
+    <!-- OUVERTURE -->
+    <div class="left"></div>
+    <div class="right"></div>
+
+    <!-- CONTENU -->
     <div class="content">
       <h1>Veux-tu sortir avec moi à nouveau ? 💖</h1>
 
-      <button onclick="alert('Je t’aime ❤️')">
+      <button>
         Bien sûr ❤️
       </button>
     </div>
