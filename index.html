@@ -4,6 +4,8 @@
   <meta charset="UTF-8">
   <title>Pour Anaïs ❤️</title>
 
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&display=swap" rel="stylesheet">
 
   <style>
@@ -12,6 +14,7 @@
       text-align: center;
       background: pink;
       padding-top: 100px;
+      overflow-x: hidden;
     }
 
     h1 {
@@ -19,10 +22,11 @@
       letter-spacing: 2px;
     }
 
-   p {
-  font-size: 2.4rem;
-  margin-top: 20px;
-}
+    p {
+      font-size: 2.4rem;
+      margin-top: 20px;
+      padding: 0 15px;
+    }
 
     button {
       margin-top: 20px;
@@ -32,6 +36,22 @@
       border-radius: 10px;
       cursor: pointer;
     }
+
+    .photos {
+      margin-top: 60px;
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+      align-items: center;
+      padding-bottom: 60px;
+    }
+
+    .photos img {
+      width: 90%;
+      max-width: 320px;
+      border-radius: 20px;
+      box-shadow: 0 5px 20px rgba(0,0,0,0.2);
+    }
   </style>
 </head>
 
@@ -39,15 +59,16 @@
 
   <h1>Anaïs mon bébé ❤️</h1>
 
- <p>J'ai fait quelque chose pour te montrer à quel point je tiens à toi.</p>
+  <p>J'ai fait quelque chose pour te montrer à quel point je tiens à toi.</p>
 
   <button onclick="alert('Je t’aime ❤️')">
     Clique ici
   </button>
+
   <div class="photos">
-  <img src="photo1.jpg">
-  <img src="photo2.jpg">
-</div>
+    <img src="photo1.jpg">
+    <img src="photo2.jpg">
+  </div>
 
 </body>
 </html>
