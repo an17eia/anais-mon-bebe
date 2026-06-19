@@ -10,57 +10,69 @@
 
   <style>
     body {
-      font-family: 'Playfair Display', serif;
-      text-align: center;
-      background: pink;
-      padding-top: 100px;
       margin: 0;
+      font-family: 'Playfair Display', serif;
+
+      /* IMAGE DE FOND */
+      background: url('photo2.jpg') center/cover no-repeat;
+
+      min-height: 100vh;
+
+      display: flex;
+      justify-content: center;
+      align-items: center;
+
       overflow-x: hidden;
     }
 
+    /* CARTE / ETIQUETTE */
+    .card {
+      background: rgba(255, 255, 255, 0.75);
+      backdrop-filter: blur(6px);
+      padding: 30px 20px;
+      border-radius: 20px;
+      text-align: center;
+      max-width: 90%;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+    }
+
     h1 {
-      font-size: clamp(2.5rem, 8vw, 6rem);
-      letter-spacing: 2px;
+      font-size: clamp(2rem, 6vw, 4rem);
+      margin-bottom: 15px;
     }
 
     p {
-      font-size: 1.6rem;
-      margin-top: 20px;
-      padding: 0 15px;
+      font-size: 1.4rem;
+      margin-bottom: 20px;
     }
 
-    .photos {
-      margin-top: 60px;
-      display: flex;
-      flex-direction: column;
-      gap: 20px;
-      align-items: center;
+    button {
+      padding: 12px 20px;
+      border: none;
+      border-radius: 12px;
+      cursor: pointer;
+      font-size: 1rem;
+      background: #ff6b9a;
+      color: white;
+      transition: 0.3s;
     }
 
-    .photos img {
-      width: 90%;
-      max-width: 320px;
-      border-radius: 20px;
-      box-shadow: 0 5px 20px rgba(0,0,0,0.2);
-      transition: transform 0.4s ease, box-shadow 0.4s ease;
-    }
-
-    .photos img:hover {
-      transform: scale(1.03);
-      box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+    button:hover {
+      transform: scale(1.05);
     }
   </style>
 </head>
 
 <body>
 
-  <h1>Anaïs mon bébé ❤️</h1>
+  <div class="card">
+    <h1>Anaïs mon bébé ❤️</h1>
 
-  <p>J'ai fait quelque chose pour te montrer à quel point je tiens à toi.</p>
+    <p>J'ai fait quelque chose pour te montrer à quel point je tiens à toi.</p>
 
-  <div class="photos">
-    <img src="photo1.jpg" alt="photo 1">
-    <img src="photo2.jpg" alt="photo 2">
+    <button onclick="window.location.href='page2.html'">
+      Continuer
+    </button>
   </div>
 
 </body>
