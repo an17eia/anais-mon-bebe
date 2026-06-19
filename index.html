@@ -24,18 +24,9 @@
     }
 
     p {
-      font-size: 2rem;
+      font-size: 1.6rem;
       margin-top: 20px;
       padding: 0 15px;
-    }
-
-    button {
-      margin-top: 20px;
-      padding: 12px 20px;
-      font-size: 1rem;
-      border: none;
-      border-radius: 10px;
-      cursor: pointer;
     }
 
     .photos {
@@ -51,6 +42,12 @@
       max-width: 320px;
       border-radius: 20px;
       box-shadow: 0 5px 20px rgba(0,0,0,0.2);
+      transition: transform 0.4s ease, box-shadow 0.4s ease;
+    }
+
+    .photos img:hover {
+      transform: scale(1.03);
+      box-shadow: 0 10px 30px rgba(0,0,0,0.3);
     }
   </style>
 </head>
@@ -61,10 +58,6 @@
 
   <p>J'ai fait quelque chose pour te montrer à quel point je tiens à toi.</p>
 
-  <button onclick="alert('Je t’aime ❤️')">
-    Clique ici
-  </button>
-
   <div class="photos">
     <img src="photo1.jpg" alt="photo 1">
     <img src="photo2.jpg" alt="photo 2">
@@ -72,3 +65,4 @@
 
 </body>
 </html>
+
