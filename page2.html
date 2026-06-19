@@ -1,165 +1,162 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <title>💖</title>
+<title>💖</title>
 
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&display=swap" rel="stylesheet">
 
-  <style>
-    body {
-      margin: 0;
-      height: 100vh;
-      font-family: 'Playfair Display', serif;
+<style>
+  body {
+    margin: 0;
+    height: 100vh;
+    font-family: 'Playfair Display', serif;
 
-      background: url('photo2.jpg') center/cover no-repeat;
-      display: flex;
-      justify-content: center;
-      align-items: center;
+    background: url('photo2.jpg') center/cover no-repeat;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 
-      perspective: 1200px;
-      overflow: hidden;
-    }
+    overflow: hidden;
+  }
 
-    /* LIVRE EN FORME DE COEUR */
-    .book {
-      position: relative;
-      width: 260px;
-      height: 240px;
-      transform-style: preserve-3d;
-      cursor: pointer;
-    }
+  /* CONTENEUR */
+  .heart-book {
+    position: relative;
+    width: 220px;
+    height: 200px;
+    cursor: pointer;
+    transform-style: preserve-3d;
+  }
 
-    /* COEUR DE BASE (forme globale) */
-    .heart-base {
-      position: absolute;
-      width: 100%;
-      height: 100%;
-      background: #ff2f6d;
-      transform: rotate(-45deg);
-      border-radius: 20px;
-      box-shadow: 0 10px 30px rgba(0,0,0,0.3);
-    }
+  /* COEUR BASE */
+  .heart {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background: #ff2f6d;
+    transform: rotate(-45deg);
+  }
 
-    .heart-base::before,
-    .heart-base::after {
-      content: "";
-      position: absolute;
-      width: 100%;
-      height: 100%;
-      background: #ff2f6d;
-      border-radius: 50%;
-    }
+  .heart::before,
+  .heart::after {
+    content: "";
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background: #ff2f6d;
+    border-radius: 50%;
+  }
 
-    .heart-base::before {
-      top: -50%;
-      left: 0;
-    }
+  .heart::before {
+    top: -50%;
+    left: 0;
+  }
 
-    .heart-base::after {
-      left: 50%;
-      top: 0;
-    }
+  .heart::after {
+    left: 50%;
+    top: 0;
+  }
 
-    /* PARTIE GAUCHE / DROITE QUI S'OUVRENT */
-    .left, .right {
-      position: absolute;
-      top: 0;
-      width: 50%;
-      height: 100%;
-      background: rgba(255,255,255,0.92);
-      transition: transform 1s ease;
-      backface-visibility: hidden;
-    }
+  /* MOITIÉS QUI S'OUVRENT */
+  .left, .right {
+    position: absolute;
+    top: 0;
+    width: 50%;
+    height: 100%;
+    background: rgba(255,255,255,0.92);
+    transition: transform 1s ease;
+    backface-visibility: hidden;
+  }
 
-    .left {
-      left: 0;
-      border-radius: 120px 0 0 120px;
-      transform-origin: left;
-    }
+  .left {
+    left: 0;
+    transform-origin: left;
+    border-radius: 110px 0 0 110px;
+  }
 
-    .right {
-      right: 0;
-      border-radius: 0 120px 120px 0;
-      transform-origin: right;
-    }
+  .right {
+    right: 0;
+    transform-origin: right;
+    border-radius: 0 110px 110px 0;
+  }
 
-    /* CONTENU */
-    .content {
-      position: absolute;
-      width: 100%;
-      height: 100%;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      text-align: center;
+  /* CONTENU */
+  .content {
+    position: absolute;
+    width: 100%;
+    height: 100%;
 
-      opacity: 0;
-      transition: opacity 0.5s ease 0.6s;
-      padding: 20px;
-      box-sizing: border-box;
-    }
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
 
-    .content h1 {
-      font-size: 1.4rem;
-      margin-bottom: 20px;
-    }
+    text-align: center;
+    opacity: 0;
+    transition: opacity 0.5s ease 0.6s;
+    padding: 20px;
+    box-sizing: border-box;
+  }
 
-    button {
-      padding: 12px 18px;
-      border: none;
-      border-radius: 12px;
-      cursor: pointer;
-      background: #ff6b9a;
-      color: white;
-      font-size: 1rem;
-    }
+  .content h1 {
+    font-size: 1.3rem;
+    margin-bottom: 20px;
+  }
 
-    button:hover {
-      transform: scale(1.05);
-    }
+  button {
+    padding: 12px 18px;
+    border: none;
+    border-radius: 12px;
+    cursor: pointer;
+    background: #ff6b9a;
+    color: white;
+    font-size: 1rem;
+  }
 
-    /* OUVERTURE */
-    .book.open .left {
-      transform: rotateY(-120deg);
-    }
+  button:hover {
+    transform: scale(1.05);
+  }
 
-    .book.open .right {
-      transform: rotateY(120deg);
-    }
+  /* OUVERTURE */
+  .heart-book.open .left {
+    transform: rotateY(-130deg);
+  }
 
-    .book.open .content {
-      opacity: 1;
-    }
+  .heart-book.open .right {
+    transform: rotateY(130deg);
+  }
 
-  </style>
+  .heart-book.open .content {
+    opacity: 1;
+  }
+
+</style>
 </head>
 
 <body>
 
-  <div class="book" onclick="this.classList.add('open')">
+<div class="heart-book" onclick="this.classList.add('open')">
 
-    <!-- COEUR VISUEL -->
-    <div class="heart-base"></div>
+  <!-- coeur visuel -->
+  <div class="heart"></div>
 
-    <!-- OUVERTURE -->
-    <div class="left"></div>
-    <div class="right"></div>
+  <!-- ouverture -->
+  <div class="left"></div>
+  <div class="right"></div>
 
-    <!-- CONTENU -->
-    <div class="content">
-      <h1>Veux-tu sortir avec moi à nouveau ? 💖</h1>
+  <!-- message -->
+  <div class="content">
+    <h1>Veux-tu sortir avec moi à nouveau ? 💖</h1>
 
-      <button>
-        Bien sûr ❤️
-      </button>
-    </div>
-
+    <button>
+      Bien sûr ❤️
+    </button>
   </div>
+
+</div>
 
 </body>
 </html>
-
