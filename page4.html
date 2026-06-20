@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Pour Anaïs ❤️</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&display=swap" rel="stylesheet">
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'Playfair Display', serif;
+      background: url('photo2.jpg') center/cover no-repeat fixed;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: flex-start;
+      padding: 30px 20px;
+      overflow-x: hidden;
+      cursor: pointer;
+    }
+
+    /* CARTE PRINCIPALE */
+    .chat-card {
+      background: rgba(255, 255, 255, 0.75);
+      backdrop-filter: blur(6px);
+      border-radius: 20px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+      padding: 20px;
+      width: 100%;
+      max-width: 420px;
+      margin-bottom: 20px;
+    }
+
+    .chat-title {
+      text-align: center;
+      font-size: 1rem;
+      color: #c2607a;
+      margin-bottom: 16px;
+      font-weight: 400;
+      font-style: italic;
+    }
+
+    /* MESSAGES */
+    .messages {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      min-height: 200px;
+    }
+
+    .bubble-wrap {
+      display: flex;
+      opacity: 0;
+      transform: translateY(10px);
+      transition: opacity 0.4s ease, transform 0.4s ease;
+    }
+
+    .bubble-wrap.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .bubble-wrap.from-her { justify-content: flex-start; }
+    .bubble-wrap.from-me  { justify-content: flex-end; }
+
+    .bubble {
+      max-width: 75%;
+      padding: 10px 14px;
+      border-radius: 18px;
+      font-size: 0.92rem;
+      line-height: 1.5;
+      color: white;
+    }
+
+    /* Style Instagram : dégradé violet/rose pour elle, dégradé rose pour moi */
+    .bubble-wrap.from-her .bubble {
+      background: linear-gradient(135deg, #ff6b6b, #ff0080, #ff4d6d);
+      border-bottom-left-radius: 4px;
+    }
+
+    .bubble-wrap.from-me .bubble {
+      background: linear-gradient(135deg, #833ab4, #c13584, #e1306c);
+      border-bottom-right-radius: 4px;
+    }
+
+    /* HINT */
+    .hint {
+      text-align: center;
+      font-size: 0.8rem;
+      color: #999;
+      margin-top: 14px;
+      font-style: italic;
+      transition: opacity 0.5s;
+    }
+
+    /* MESSAGE FINAL */
+    .final-msg {
+      background: rgba(255, 255, 255, 0.75);
+      backdrop-filter: blur(6px);
+      border-radius: 20px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+      padding: 20px 25px;
+      width: 100%;
+      max-width: 420px;
+      text-align: center;
+      opacity: 0;
+      transform: translateY(20px);
+      transition: opacity 0.6s ease, transform 0.6s ease;
+      pointer-events: none;
+    }
+
+    .final-msg.visible {
+      opacity: 1;
+      transform: translateY(0);
+      pointer-events: all;
+    }
+
+    .final-msg p {
+      font-size: 1.1rem;
+      color: #c2607a;
+      font-style: italic;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="chat-card">
+    <p class="chat-title">Le message qui a tout changé 💌</p>
+    <div class="messages" id="messages"></div>
+    <p class="hint" id="hint">Appuie n'importe où pour continuer...</p>
+  </div>
+
+  <div class="final-msg" id="finalMsg">
+    <p>Je suis trop heureux de t'avoir écouté ❤️</p>
+  </div>
+
+  <script>
+    const MESSAGES = [
+      { from: 'her', text: "Honnêtement je veux pas avoir à te supplier pour que tu veuilles bien de moi, (même si c'est pas l'envie qui me manque 🥰) mais je veux que ta décision vienne de toi et je veux pas que tu te sentes forcer\nJe veux juste savoir si oui ou non je dois abandonner\nJe sais que t'as peur et je comprends que t'aies besoin de temps d'y réfléchir.\nMais je veux juste pas passer à côté d'une histoire avec toi parce que je t'aime vraiment et je veux te garder dans ma vie\nJe peux pas te promettre que ce sera parfait et que y'aura aucun problème mais je peux te promettre que je serai là pour toi et que je ferai de mon mieux pour te rendre heureux\nVoilà ma vie t'es pas obligé de répondre parce que c'est un peu gênant et c'est ok" },
+      { from: 'me',  text: "C'est mignon" },
+      { from: 'me',  text: "Je t'aime" },
+      { from: 'her', text: "moi aussi je t'aime" },
+      { from: 'me',  text: "Jsp quoi faire" },
+      { from: 'her', text: "Tu veux faire quoi" },
+      { from: 'me',  text: "je veux juste t'aimer" },
+      { from: 'her', text: "Alors" },
+      { from: 'her', text: "Fais moi" },
+      { from: 'her', text: "Confiance" },
+      { from: 'me',  text: "T'es sûre" },
+      { from: 'me',  text: "?" },
+      { from: 'her', text: "oui" },
+      { from: 'her', text: "oui" },
+      { from: 'her', text: "oui" },
+      { from: 'her', text: "oui" },
+      { from: 'her', text: "oui" },
+      { from: 'her', text: "oui" },
+      { from: 'her', text: "oui" },
+    ];
+
+    let current = 0;
+    const container = document.getElementById('messages');
+    const hint = document.getElementById('hint');
+    const finalMsg = document.getElementById('finalMsg');
+
+    function showNext() {
+      if (current >= MESSAGES.length) {
+        // Tout affiché, montrer le message final
+        hint.style.opacity = '0';
+        finalMsg.classList.add('visible');
+        return;
+      }
+
+      const msg = MESSAGES[current];
+      const wrap = document.createElement('div');
+      wrap.className = 'bubble-wrap from-' + (msg.from === 'her' ? 'her' : 'me');
+
+      const bubble = document.createElement('div');
+      bubble.className = 'bubble';
+      msg.text.split('\n').forEach(function(line, i, arr) {
+        const span = document.createElement('span');
+        span.textContent = line;
+        bubble.appendChild(span);
+        if (i < arr.length - 1) bubble.appendChild(document.createElement('br'));
+      });
+
+      wrap.appendChild(bubble);
+      container.appendChild(wrap);
+
+      // Scroll vers le bas
+      wrap.scrollIntoView({ behavior: 'smooth', block: 'end' });
+
+      // Déclencher l'animation
+      requestAnimationFrame(function() {
+        requestAnimationFrame(function() {
+          wrap.classList.add('visible');
+        });
+      });
+
+      current++;
+
+      if (current >= MESSAGES.length) {
+        hint.textContent = 'Appuie encore une fois...';
+      }
+    }
+
+    // Afficher le premier message au chargement
+    showNext();
+
+    // Clic n'importe où pour le suivant
+    document.body.addEventListener('click', function() {
+      showNext();
+    });
+  </script>
+</body>
+</html>
