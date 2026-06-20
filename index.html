@@ -1,97 +1,165 @@
 <!DOCTYPE html>
 <html lang="fr">
-<head> 
+<head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
   <title>Pour Anaïs ❤️</title>
-
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&display=swap" rel="stylesheet">
-
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&display=swap" rel="stylesheet">
   <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
     body {
-      margin: 0;
       font-family: 'Playfair Display', serif;
-
-      background: url('photo2.jpg') center/cover no-repeat;
+      background: url('photo2.jpg') center/cover no-repeat fixed;
       min-height: 100vh;
-
       display: flex;
       flex-direction: column;
-      justify-content: space-between;
       align-items: center;
-
-      padding: 30px 0;
-
-      overflow-x: hidden;
+      justify-content: center;
+      gap: 30px;
+      padding: 30px 20px;
+      overflow: hidden;
     }
 
-    /* CARTE DU HAUT */
-    .top-card {
-      background: rgba(255, 255, 255, 0.75);
-      backdrop-filter: blur(6px);
-      padding: 15px 20px;
-      border-radius: 15px;
-      text-align: center;
-      box-shadow: 0 10px 25px rgba(0,0,0,0.2);
-    }
-
-    .top-card h1 {
-      font-size: 1.8rem;
-      margin: 0;
-    }
-
-    /* CARTE DU BAS */
-    .bottom-card {
-      background: rgba(255, 255, 255, 0.75);
-      backdrop-filter: blur(6px);
-      padding: 25px 20px;
-      border-radius: 20px;
-      text-align: center;
-      max-width: 90%;
-      box-shadow: 0 10px 30px rgba(0,0,0,0.2);
-    }
-
-    .bottom-card p {
+    /* CŒURS */
+    .heart {
+      position: fixed;
+      top: -40px;
       font-size: 1.4rem;
-      margin-bottom: 20px;
+      animation: fall linear infinite;
+      pointer-events: none;
+      z-index: 0;
+      opacity: 0.85;
     }
 
-    button {
-      padding: 12px 20px;
-      border: none;
-      border-radius: 12px;
-      cursor: pointer;
-      font-size: 1rem;
+    @keyframes fall {
+      0%   { transform: translateY(0) rotate(0deg); opacity: 0.9; }
+      100% { transform: translateY(110vh) rotate(30deg); opacity: 0; }
+    }
+
+    /* CONTENU */
+    .content {
+      position: relative;
+      z-index: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 28px;
+      text-align: center;
+      padding: 0 10px;
+    }
+
+    .title {
+      font-size: 2rem;
+      font-weight: 700;
+      color: white;
+      text-shadow: 0 2px 16px rgba(0,0,0,0.5);
+      min-height: 2.5rem;
+      letter-spacing: 0.02em;
+    }
+
+    .subtitle {
+      font-size: 1.1rem;
+      color: white;
+      text-shadow: 0 2px 12px rgba(0,0,0,0.5);
+      line-height: 1.7;
+      max-width: 340px;
+      font-style: italic;
+      min-height: 4rem;
+    }
+
+    .btn {
       background: #ff6b9a;
       color: white;
-      transition: 0.3s;
+      border: none;
+      padding: 14px 32px;
+      border-radius: 14px;
+      font-size: 1.05rem;
+      font-family: 'Playfair Display', serif;
+      cursor: pointer;
+      box-shadow: 0 6px 20px rgba(255,107,154,0.5);
+      transition: transform 0.2s, box-shadow 0.2s;
+      opacity: 0;
+      animation: pulse 2.5s ease-in-out infinite;
     }
 
-    button:hover {
-      transform: scale(1.05);
+    .btn.visible {
+      opacity: 1;
+    }
+
+    .btn:hover {
+      transform: scale(1.06);
+      box-shadow: 0 8px 28px rgba(255,107,154,0.6);
+    }
+
+    @keyframes pulse {
+      0%, 100% { transform: scale(1); }
+      50%       { transform: scale(1.04); }
     }
   </style>
 </head>
-
 <body>
 
-  <!-- CARTE HAUT -->
-  <div class="top-card">
-    <h1>Anaïs mon bébé ❤️</h1>
-  </div>
-
-  <!-- CARTE BAS -->
-  <div class="bottom-card">
-
-    <p>J'ai fait quelque chose pour te montrer à quel point je tiens à toi.</p>
-
-    <button onclick="window.location.href='page2.html'">
-      Si tu m’aimes appuie ici
+  <div class="content">
+    <div class="title" id="title"></div>
+    <div class="subtitle" id="subtitle"></div>
+    <button class="btn" id="btn" onclick="window.location.href='page2.html'">
+      Si tu m'aimes appuie ici
     </button>
-
   </div>
 
+  <script>
+    // --- CŒURS QUI TOMBENT ---
+    const HEARTS = ['❤️', '🩷', '💕', '💗', '💓', '💖', '💝'];
+    function createHeart() {
+      const el = document.createElement('div');
+      el.className = 'heart';
+      el.textContent = HEARTS[Math.floor(Math.random() * HEARTS.length)];
+      el.style.left = Math.random() * 100 + 'vw';
+      el.style.fontSize = (Math.random() * 1.2 + 0.8) + 'rem';
+      const duration = Math.random() * 4 + 4;
+      el.style.animationDuration = duration + 's';
+      el.style.animationDelay = (Math.random() * 2) + 's';
+      document.body.appendChild(el);
+      setTimeout(() => el.remove(), (duration + 2) * 1000);
+    }
+
+    // Lancer beaucoup de cœurs
+    for (let i = 0; i < 30; i++) {
+      setTimeout(createHeart, Math.random() * 2000);
+    }
+    setInterval(createHeart, 300);
+
+    // --- EFFET MACHINE À ÉCRIRE ---
+    const TEXT1 = 'Anaïs mon bébé ❤️';
+    const TEXT2 = "Si tu es là c'est que tu as scanné le qr code dans ta lettre, ce que j'ai fait ici c'est pour toi, j'espère que ça va te plaire mon amour";
+    const SPEED = 55;
+
+    function typeText(el, text, callback) {
+      let i = 0;
+      const timer = setInterval(function() {
+        el.textContent += text[i];
+        i++;
+        if (i >= text.length) {
+          clearInterval(timer);
+          if (callback) setTimeout(callback, 400);
+        }
+      }, SPEED);
+    }
+
+    const titleEl    = document.getElementById('title');
+    const subtitleEl = document.getElementById('subtitle');
+    const btn        = document.getElementById('btn');
+
+    // D'abord le titre, puis le sous-titre, puis le bouton
+    setTimeout(function() {
+      typeText(titleEl, TEXT1, function() {
+        typeText(subtitleEl, TEXT2, function() {
+          btn.classList.add('visible');
+        });
+      });
+    }, 600);
+  </script>
 </body>
 </html>
 
