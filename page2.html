@@ -159,7 +159,38 @@
       color: #c2607a;
     }
 
-    /* BOUTON RETOUR */
+    /* MINI JEU */
+    .game-card h2 {
+      font-size: 1.1rem;
+      color: #c2607a;
+      margin: 0 0 6px;
+      font-weight: 400;
+    }
+
+    .game-card .subtitle {
+      font-size: 0.9rem;
+      color: #777;
+      margin: 0 0 15px;
+      font-style: italic;
+    }
+
+    .game-input {
+      width: 100%;
+      padding: 10px 14px;
+      border: 2px solid #f0c0cc;
+      border-radius: 12px;
+      font-size: 1rem;
+      font-family: 'Playfair Display', serif;
+      color: #444;
+      outline: none;
+      text-align: center;
+      transition: border-color 0.2s;
+      margin-bottom: 12px;
+      background: rgba(255,255,255,0.8);
+    }
+
+    .game-input:focus { border-color: #e8496e; }
+
     .nav-btn {
       background: #ff6b9a;
       color: white;
@@ -171,11 +202,20 @@
       cursor: pointer;
       transition: transform 0.2s, box-shadow 0.2s;
       box-shadow: 0 4px 15px rgba(255,107,154,0.4);
+      width: 100%;
     }
 
-    .nav-btn:hover, .nav-btn:active {
-      transform: scale(1.05);
+    .nav-btn:hover, .nav-btn:active { transform: scale(1.05); }
+
+    .game-msg {
+      font-size: 0.85rem;
+      margin-top: 8px;
+      min-height: 20px;
+      font-style: italic;
     }
+
+    .game-msg.error   { color: #e8496e; }
+    .game-msg.success { color: #4caf82; }
   </style>
 </head>
 <body>
@@ -200,8 +240,14 @@
     <p class="special-label">❤️ Le 20 mars 2026, tout a commencé</p>
   </div>
 
-  <!-- NAVIGATION -->
-  <button class="nav-btn" onclick="window.location.href='index.html'">← Retour</button>
+  <!-- MINI JEU -->
+  <div class="card game-card">
+    <h2>🐶 Réponds à cette question si tu veux la suite</h2>
+    <p class="subtitle">C'est quoi la date d'anniversaire d'Ivor ?</p>
+    <input class="game-input" id="gameInput" type="text" placeholder="ex: 22 juin 2021" />
+    <button class="nav-btn" onclick="checkAnswer()">Continuer →</button>
+    <p class="game-msg" id="gameMsg"></p>
+  </div>
 
   <script>
     // --- COMPTEUR ---
@@ -285,6 +331,29 @@
     }
 
     renderCalendar();
+
+    // MINI JEU
+    const VALID = [
+      '22 juin 2021', '22/06/2021', '22-06-2021', '22.06.2021',
+      '22 06 2021', '22062021', '22/6/2021', '22-6-2021'
+    ];
+
+    function checkAnswer() {
+      const val = document.getElementById('gameInput').value.trim().toLowerCase();
+      const msg = document.getElementById('gameMsg');
+      if (VALID.includes(val)) {
+        msg.textContent = '🐾 Bravo ! Tu te souviens de tout..';
+        msg.className = 'game-msg success';
+        setTimeout(() => window.location.href = 'page3.html', 1200);
+      } else {
+        msg.textContent = 'Ce n\'est pas ça.. réfléchis bien 🐾';
+        msg.className = 'game-msg error';
+      }
+    }
+
+    document.getElementById('gameInput').addEventListener('keydown', function(e) {
+      if (e.key === 'Enter') checkAnswer();
+    });
   </script>
 </body>
 </html>
