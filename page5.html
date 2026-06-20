@@ -205,7 +205,8 @@
         title: "Balade au Peyrou",
         desc: "On est arrivés sous 400 degrés,\nun mec super malpoli nous a agressé en disant\n\"c'est fermé\"\nOk mec tu peux mieux parler en fait..\nAlors que c'était juste l'entrée qui était fermée.\nOn est rentrés, on se baladait main dans la main\ncomme de vrais amoureux.\nJ'avais beau regarder autour de moi, malgré\nla vue magnifique, la seule chose que j'avais\nvraiment envie de fixer c'était toi, tu étais\ntellement belle ce jour là.\nOn s'est posé dans l'herbe, on a mangé et tu t'es posée sur moi, on rigolait pour un rien, même si les casse-couilles d'à côté ont un peu gâché avec leur techno..\nJe voulais te dire \"un des meilleurs moments que j'ai passés avec toi\", mais en fait, tous les moments passés avec toi étaient géniaux.",
         media: [
-          { type: 'image', src: 'photo5.jpg' }
+          { type: 'image', src: 'photo5.jpg' },
+          { type: 'video', src: 'video1.mp4' }
         ]
       },
       {
@@ -213,7 +214,7 @@
         desc: "On en avait déjà beaucoup parlé du cinéma, pour des raisons que tu connais déjà..\nMais c'est pas de ça que je veux parler, c'était notre première balade nocturne, on s'était un peu baladé avant d'aller au cinéma, la nuit et les lumières sur la place ont donné une super ambiance, rajouté au moment que je vivais avec toi.\nEn sortant du cinéma, on a attendu le tram.\nOn voulait s'asseoir mais il n'y avait qu'une place.. alors tu t'es assise sur moi.\nTu faisais que de me dire que t'étais super lourde, alors que pas du tout, j'ai vraiment adoré ce moment, j'ai adoré notre complicité à cet instant, je pense que c'est à ce moment là que je me suis rendu compte que je ne pourrais jamais me séparer de toi.",
         media: [
           { type: 'image', src: 'photo6.jpg' },
-          { type: 'video', src: 'video1.mp4' }
+          { type: 'video', src: 'video2.mp4' }
         ]
       },
       {
@@ -222,8 +223,7 @@
         media: [
           { type: 'image', src: 'photo7.jpg' },
           { type: 'image', src: 'photo8.jpg' },
-          { type: 'image', src: 'photo9.jpg' },
-          { type: 'video', src: 'video2.mp4' }
+          { type: 'image', src: 'photo9.jpg' }
         ]
       },
       {
@@ -261,6 +261,7 @@
           el.playsinline = true;
         }
         if (i === 0) el.classList.add('active');
+        if (item.src === 'photo4.jpg') el.style.objectPosition = 'bottom';
         wrapper.appendChild(el);
       });
 
