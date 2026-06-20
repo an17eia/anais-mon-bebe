@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Pour Anaïs ❤️</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&display=swap" rel="stylesheet">
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'Playfair Display', serif;
+      background: url('photo2.jpg') center/cover no-repeat fixed;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 30px 20px;
+      gap: 24px;
+      cursor: pointer;
+      overflow-x: hidden;
+    }
+
+    .page-title {
+      color: white;
+      font-size: 1.4rem;
+      text-shadow: 0 2px 12px rgba(0,0,0,0.5);
+      text-align: center;
+      font-style: italic;
+      animation: fadeIn 0.8s ease both;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(16px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    .card {
+      background: rgba(255,255,255,0.78);
+      backdrop-filter: blur(8px);
+      border-radius: 24px;
+      box-shadow: 0 12px 40px rgba(0,0,0,0.2);
+      padding: 26px 28px;
+      width: 100%;
+      max-width: 420px;
+      display: none;
+      animation: fadeIn 0.6s ease both;
+    }
+
+    .card.visible { display: block; }
+
+    .card-icon {
+      font-size: 2.8rem;
+      text-align: center;
+      margin-bottom: 14px;
+    }
+
+    .card-title {
+      font-size: 1.15rem;
+      font-weight: 700;
+      color: #4a2030;
+      text-align: center;
+      margin-bottom: 12px;
+    }
+
+    .card-desc {
+      font-size: 0.88rem;
+      color: #555;
+      line-height: 1.75;
+      font-style: italic;
+      text-align: center;
+    }
+
+    .hint {
+      color: white;
+      font-size: 0.8rem;
+      font-style: italic;
+      text-shadow: 0 1px 6px rgba(0,0,0,0.4);
+      text-align: center;
+    }
+
+    .progress {
+      display: flex;
+      gap: 8px;
+      justify-content: center;
+    }
+
+    .progress-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.4);
+      transition: background 0.3s;
+    }
+
+    .progress-dot.active { background: white; }
+
+    .nav-btn {
+      background: #ff6b9a;
+      color: white;
+      border: none;
+      padding: 12px 28px;
+      border-radius: 12px;
+      font-size: 1rem;
+      font-family: 'Playfair Display', serif;
+      cursor: pointer;
+      box-shadow: 0 4px 15px rgba(255,107,154,0.4);
+      transition: transform 0.2s;
+      opacity: 0;
+      pointer-events: none;
+    }
+
+    .nav-btn.visible {
+      opacity: 1;
+      pointer-events: all;
+    }
+
+    .nav-btn:hover { transform: scale(1.05); }
+  </style>
+</head>
+<body>
+
+  <p class="page-title">Mes projets avec toi 🌙</p>
+
+  <div class="progress" id="progress"></div>
+
+  <div class="card" id="card">
+    <div class="card-icon" id="cardIcon"></div>
+    <div class="card-title" id="cardTitle"></div>
+    <div class="card-desc" id="cardDesc"></div>
+  </div>
+
+  <p class="hint" id="hint">Appuie n'importe où pour découvrir la suite...</p>
+
+  <button class="nav-btn" id="nextPageBtn" onclick="window.location.href='page8.html'">
+    Continuer →
+  </button>
+
+  <script>
+    const PROJETS = [
+      {
+        icon: '👩‍👧',
+        title: 'Te présenter à ma mère',
+        desc: "Je t'écris ça fin juin, je sais pas encore si tu l'as vue, et j'espère vraiment car ça me tient énormément à cœur. Si elle t'a déjà vue, je suis sûr qu'elle t'adore !!"
+      },
+      {
+        icon: '🐾',
+        title: 'Te présenter Ivor',
+        desc: "Les deux choses auxquelles je tiens le plus dans ce monde réunies.. je crois que je pourrais me pincer pour vérifier si je dors ou non."
+      },
+      {
+        icon: '✈️',
+        title: 'Voyager avec toi',
+        desc: "En Grèce, on en a déjà parlé et on trouve tous les deux ce pays trop beau. En Espagne, pour que tu voies mon frère et son restaurant. Au Danemark car j'adore ce pays. Et plein d'autres pays.. peu importe lequel tant que t'es avec moi (peut-être pas la Corée du Nord..)"
+      },
+      {
+        icon: '💕',
+        title: 'Te voir plus souvent',
+        desc: "Avec la distance c'est très compliqué de se voir régulièrement, te voir plus souvent c'est vraiment quelque chose que je veux, car j'ai trop besoin de toi."
+      },
+      {
+        icon: '🏠',
+        title: 'Emménager avec toi',
+        desc: "La chose dont j'ai le plus envie je pense. Me réveiller et m'endormir à tes côtés tous les jours.. je serai sûrement l'homme le plus heureux quand ça arrivera. J'espère que c'est pour le plus tôt possible."
+      }
+    ];
+
+    let current = -1;
+
+    // Créer les points de progression
+    const progressEl = document.getElementById('progress');
+    PROJETS.forEach(function(_, i) {
+      const dot = document.createElement('div');
+      dot.className = 'progress-dot';
+      dot.id = 'dot-' + i;
+      progressEl.appendChild(dot);
+    });
+
+    function showNext() {
+      if (current >= PROJETS.length - 1) return;
+      current++;
+
+      const p = PROJETS[current];
+      const card = document.getElementById('card');
+
+      card.classList.remove('visible');
+      setTimeout(function() {
+        document.getElementById('cardIcon').textContent = p.icon;
+        document.getElementById('cardTitle').textContent = p.title;
+        document.getElementById('cardDesc').textContent = p.desc;
+        card.classList.add('visible');
+      }, 100);
+
+      // Mettre à jour les points
+      PROJETS.forEach(function(_, i) {
+        document.getElementById('dot-' + i).classList.toggle('active', i <= current);
+      });
+
+      if (current === PROJETS.length - 1) {
+        document.getElementById('hint').style.opacity = '0';
+        setTimeout(function() {
+          document.getElementById('nextPageBtn').classList.add('visible');
+        }, 600);
+      }
+    }
+
+    // Premier projet au chargement
+    showNext();
+
+    document.body.addEventListener('click', function(e) {
+      if (e.target.id === 'nextPageBtn') return;
+      showNext();
+    });
+  </script>
+</body>
+</html>
