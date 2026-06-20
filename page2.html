@@ -244,7 +244,7 @@
   <div class="card game-card">
     <h2>🐶 Réponds à cette question si tu veux la suite</h2>
     <p class="subtitle">C'est quoi la date d'anniversaire d'Ivor ?</p>
-    <input class="game-input" id="gameInput" type="text" placeholder="ex: 22 juin 2021" />
+    <input class="game-input" id="gameInput" type="text" placeholder="ex: 18 décembre 2007" />
     <button class="nav-btn" onclick="checkAnswer()">Continuer →</button>
     <p class="game-msg" id="gameMsg"></p>
   </div>
@@ -342,7 +342,7 @@
       const val = document.getElementById('gameInput').value.trim().toLowerCase();
       const msg = document.getElementById('gameMsg');
       if (VALID.includes(val)) {
-        msg.textContent = '🐾 Bravo ! Tu te souviens de tout..';
+        msg.textContent = 'Ivor t'aime ❤️';
         msg.className = 'game-msg success';
         setTimeout(() => window.location.href = 'page3.html', 1200);
       } else {
