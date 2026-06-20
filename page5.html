@@ -189,6 +189,7 @@
     <button class="nav-btn" id="btnPrev" onclick="navigate(-1)">← Précédent</button>
     <span class="nav-counter" id="counter"></span>
     <button class="nav-btn" id="btnNext" onclick="navigate(1)">Suivant →</button>
+    <button class="nav-btn" id="btnPageSuivante" style="display:none;" onclick="window.location.href='page6.html'">Page suivante →</button>
   </div>
 
   <script>
@@ -296,6 +297,13 @@
       document.getElementById('counter').textContent = (idx + 1) + ' / ' + MOMENTS.length;
       document.getElementById('btnPrev').disabled = idx === 0;
       document.getElementById('btnNext').disabled = idx === MOMENTS.length - 1;
+      
+      const btnPageSuivante = document.getElementById('btnPageSuivante');
+      if (idx === MOMENTS.length - 1) {
+        btnPageSuivante.style.display = 'block';
+      } else {
+        btnPageSuivante.style.display = 'none';
+      }
     }
 
     function changeMedia(dir) {
