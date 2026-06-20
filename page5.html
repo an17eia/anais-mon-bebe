@@ -15,226 +15,325 @@
       display: flex;
       flex-direction: column;
       align-items: center;
+      justify-content: center;
       padding: 30px 20px;
-      gap: 24px;
       overflow-x: hidden;
     }
 
+    /* FONDU AU NOIR */
+    .fade-overlay {
+      position: fixed;
+      inset: 0;
+      background: black;
+      opacity: 0;
+      pointer-events: none;
+      z-index: 100;
+      transition: opacity 0.5s ease;
+    }
+    .fade-overlay.active { opacity: 1; pointer-events: all; }
+
+    /* TITRE PAGE */
     .page-title {
       color: white;
       font-size: 1.4rem;
       text-shadow: 0 2px 12px rgba(0,0,0,0.5);
+      margin-bottom: 24px;
       text-align: center;
-      font-style: italic;
-    }
-
-    .card {
-      background: rgba(255,255,255,0.78);
-      backdrop-filter: blur(8px);
-      border-radius: 24px;
-      box-shadow: 0 12px 40px rgba(0,0,0,0.2);
-      padding: 22px;
-      width: 100%;
-      max-width: 420px;
-    }
-
-    .card-title {
-      text-align: center;
-      font-size: 1rem;
-      color: #c2607a;
-      margin-bottom: 14px;
-      font-weight: 400;
       font-style: italic;
     }
 
     /* CARTE */
-    .map-container {
-      position: relative;
+    .card {
+      background: rgba(255,255,255,0.78);
+      backdrop-filter: blur(8px);
+      border-radius: 24px;
+      box-shadow: 0 12px 40px rgba(0,0,0,0.25);
       width: 100%;
-      border-radius: 14px;
+      max-width: 420px;
       overflow: hidden;
-      background: #e8f0f8;
     }
 
-    .map-container svg {
-      width: 100%;
-      height: auto;
-      display: block;
-    }
-
-    .city-label {
-      font-family: 'Playfair Display', serif;
-      font-size: 11px;
-      font-weight: 600;
-    }
-
-    .distance-badge {
-      text-align: center;
-      margin-top: 12px;
-      font-size: 0.85rem;
-      color: #c2607a;
-      font-style: italic;
-    }
-
-    /* Ligne animée */
-    @keyframes dash {
-      to { stroke-dashoffset: 0; }
-    }
-
-    .animated-line {
-      stroke-dasharray: 600;
-      stroke-dashoffset: 600;
-      animation: dash 2s ease forwards;
-      animation-delay: 0.5s;
-    }
-
-    /* FRISE */
-    .timeline {
-      display: flex;
-      flex-direction: column;
-      gap: 0;
+    /* MEDIA */
+    .media-wrapper {
       position: relative;
-      padding-left: 20px;
+      width: 100%;
+      aspect-ratio: 4/3;
+      background: #111;
+      overflow: hidden;
     }
 
-    .timeline::before {
-      content: '';
+    .media-wrapper img,
+    .media-wrapper video {
       position: absolute;
-      left: 28px;
-      top: 10px;
-      bottom: 10px;
-      width: 2px;
-      background: linear-gradient(to bottom, #e8496e, #ffb6c8);
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      opacity: 0;
+      transition: opacity 0.4s ease;
     }
 
-    .timeline-item {
-      display: flex;
-      align-items: flex-start;
-      gap: 14px;
-      padding: 10px 0;
-      animation: fadeIn 0.6s ease both;
-    }
+    .media-wrapper img.active,
+    .media-wrapper video.active { opacity: 1; }
 
-    @keyframes fadeIn {
-      from { opacity: 0; transform: translateX(-10px); }
-      to   { opacity: 1; transform: translateX(0); }
-    }
-
-    .timeline-icon {
-      width: 36px;
-      height: 36px;
+    /* Flèches media (pour cartes avec plusieurs médias) */
+    .media-nav {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      background: rgba(255,255,255,0.7);
+      border: none;
       border-radius: 50%;
-      background: white;
-      border: 2px solid #e8496e;
+      width: 34px;
+      height: 34px;
+      font-size: 1rem;
+      cursor: pointer;
+      z-index: 5;
       display: flex;
       align-items: center;
       justify-content: center;
-      font-size: 1.1rem;
-      flex-shrink: 0;
-      box-shadow: 0 2px 8px rgba(232,73,110,0.2);
-      position: relative;
-      z-index: 1;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+      transition: background 0.2s;
+    }
+    .media-nav:hover { background: rgba(255,255,255,0.95); }
+    .media-nav.left  { left: 10px; }
+    .media-nav.right { right: 10px; }
+    .media-nav.hidden { display: none; }
+
+    /* Indicateurs points */
+    .media-dots {
+      position: absolute;
+      bottom: 8px;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      gap: 6px;
+      z-index: 5;
+    }
+    .media-dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.5);
+      transition: background 0.2s;
+    }
+    .media-dot.active { background: white; }
+
+    /* TEXTE */
+    .card-body {
+      padding: 20px 22px 24px;
     }
 
-    .timeline-content {
-      padding-top: 4px;
+    .card-title {
+      font-size: 1.15rem;
+      font-weight: 700;
+      color: #4a2030;
+      margin-bottom: 10px;
     }
 
-    .timeline-date {
-      font-size: 0.75rem;
-      color: #e8496e;
-      font-weight: 600;
-      margin-bottom: 2px;
-      letter-spacing: 0.05em;
+    .card-desc {
+      font-size: 0.85rem;
+      color: #555;
+      line-height: 1.7;
+      font-style: italic;
+      white-space: pre-line;
     }
 
-    .timeline-text {
-      font-size: 0.88rem;
-      color: #444;
-      line-height: 1.5;
+    /* NAVIGATION ENTRE MOMENTS */
+    .nav-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      width: 100%;
+      max-width: 420px;
+      margin-top: 20px;
+    }
+
+    .nav-btn {
+      background: #ff6b9a;
+      color: white;
+      border: none;
+      padding: 11px 22px;
+      border-radius: 12px;
+      font-size: 0.95rem;
+      font-family: 'Playfair Display', serif;
+      cursor: pointer;
+      box-shadow: 0 4px 15px rgba(255,107,154,0.4);
+      transition: transform 0.2s, opacity 0.2s;
+    }
+    .nav-btn:hover { transform: scale(1.05); }
+    .nav-btn:disabled { opacity: 0; pointer-events: none; }
+
+    .nav-counter {
+      font-size: 0.85rem;
+      color: white;
+      text-shadow: 0 1px 6px rgba(0,0,0,0.4);
     }
   </style>
 </head>
 <body>
 
-  <p class="page-title">Notre histoire ❤️</p>
+  <div class="fade-overlay" id="fadeOverlay"></div>
 
-  <!-- CARTE -->
-  <div class="card">
-    <p class="card-title">Nous deux, séparés par 1 050 km 💌</p>
-    <div class="map-container" style="height: 340px;">
-      <iframe
-        src="https://www.google.com/maps/embed?pb=!1m28!1m12!1m3!1d2800000!2d1.8!3d47.0!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!4m13!3e0!4m5!1s0x47c2e8c9f5a1a4a1%3A0x40af13e8134fa10!2sMaubeuge%2C%20France!3m2!1d50.2792!2d3.9706!4m5!1s0x12b6af35e5fe9a39%3A0x40af13e8134f980!2sMontpellier%2C%20France!3m2!1d43.6119!2d3.8772!5e0!3m2!1sfr!2sfr!4v1"
-        style="width:100%; height:100%; border:none; border-radius:14px;"
-        allowfullscreen loading="lazy">
-      </iframe>
-    </div>
-    
-  </div>
+  <p class="page-title">Mes moments préférés avec toi ❤️</p>
 
-  <!-- FRISE -->
-  <div class="card">
-    <p class="card-title">Notre histoire depuis le début ✨</p>
-    <div class="timeline">
-
-      <div class="timeline-item">
-        <div class="timeline-icon">🎮</div>
-        <div class="timeline-content">
-          <div class="timeline-date">Mars 2024</div>
-          <div class="timeline-text">On commence à se parler sur <em>MakeitMeme</em> 🎮</div>
-        </div>
-      </div>
-
-      <div class="timeline-item">
-        <div class="timeline-icon">😔</div>
-        <div class="timeline-content">
-          <div class="timeline-date">Mai 2024</div>
-          <div class="timeline-text">Je t'ai bloquée.. (t'étais chiante)</div>
-        </div>
-      </div>
-
-      <div class="timeline-item">
-        <div class="timeline-icon">💌</div>
-        <div class="timeline-content">
-          <div class="timeline-date">1er février 2026</div>
-          <div class="timeline-text">Tu m'as renvoyé un message — la meilleure chose qui pouvait arriver</div>
-        </div>
-      </div>
-
-      <div class="timeline-item">
-        <div class="timeline-icon">❤️</div>
-        <div class="timeline-content">
-          <div class="timeline-date">20 mars 2026</div>
-          <div class="timeline-text">On se met en couple 🥰</div>
-        </div>
-      </div>
-
-      <div class="timeline-item">
-        <div class="timeline-icon">🚆</div>
-        <div class="timeline-content">
-          <div class="timeline-date">19 mai 2026</div>
-          <div class="timeline-text">Le train pour venir te voir ❤️</div>
-        </div>
-      </div>
-
-      <div class="timeline-item">
-        <div class="timeline-icon">🌟</div>
-        <div class="timeline-content">
-          <div class="timeline-date">20 mai 2026</div>
-          <div class="timeline-text">On se voit pour la première fois 🥺❤️</div>
-        </div>
-      </div>
-
-      <div class="timeline-item">
-        <div class="timeline-icon">💔</div>
-        <div class="timeline-content">
-          <div class="timeline-date">28 mai 2026</div>
-          <div class="timeline-text">Je suis parti, tu me manques trop ❤️</div>
-        </div>
-      </div>
-
+  <div class="card" id="card">
+    <div class="media-wrapper" id="mediaWrapper"></div>
+    <div class="card-body">
+      <div class="card-title" id="cardTitle"></div>
+      <div class="card-desc" id="cardDesc"></div>
     </div>
   </div>
 
+  <div class="nav-row">
+    <button class="nav-btn" id="btnPrev" onclick="navigate(-1)">← Précédent</button>
+    <span class="nav-counter" id="counter"></span>
+    <button class="nav-btn" id="btnNext" onclick="navigate(1)">Suivant →</button>
+    <button class="nav-btn" id="btnPageSuivante" style="display:none;" onclick="window.location.href='page6.html'">Page suivante →</button>
+  </div>
+
+  <script>
+    const MOMENTS = [
+      {
+        title: "Notre première journée ensemble",
+        desc: "On s'est posé chez toi, je devais aller me laver\nmais j'osais pas, j'osais pas non plus me\nposer sur ton lit..\nOn jouait avec les doudous, mais dans ma tête\nla seule chose que j'avais en tête c'était\nte prendre dans mes bras, je ne pouvais\npas m'empêcher de regarder ton visage qui\nsignifie tant de choses pour moi.\nTu m'as donné mes cadeaux, j'avais peur de pas\navoir la réaction que tu attendais.\nJe me rappelle avoir écarté mes bras et t'avoir\ndemandé un câlin, le premier vrai câlin.\nJ'oublierai jamais ce moment, je me suis senti\ntellement apaisé.",
+        media: [
+          { type: 'image', src: 'photo3.jpg' },
+          { type: 'image', src: 'photo4.jpg' }
+        ]
+      },
+      {
+        title: "Balade au Peyrou",
+        desc: "On est arrivés sous 400 degrés,\nun mec super malpoli nous a agressé en disant\n\"c'est fermé\"\nOk mec tu peux mieux parler en fait..\nAlors que c'était juste l'entrée qui était fermée.\nOn est rentrés, on se baladait main dans la main\ncomme de vrais amoureux.\nJ'avais beau regarder autour de moi, malgré\nla vue magnifique, la seule chose que j'avais\nvraiment envie de fixer c'était toi, tu étais\ntellement belle ce jour là.\nOn s'est posé dans l'herbe, on a mangé et tu t'es posée sur moi, on rigolait pour un rien, même si les casse-couilles d'à côté ont un peu gâché avec leur techno..\nJe voulais te dire \"un des meilleurs moments que j'ai passés avec toi\", mais en fait, tous les moments passés avec toi étaient géniaux.",
+        media: [
+          { type: 'image', src: 'photo5.jpg' },
+          { type: 'video', src: 'video1.mp4' }
+        ]
+      },
+      {
+        title: "Cinéma",
+        desc: "On en avait déjà beaucoup parlé du cinéma, pour des raisons que tu connais déjà..\nMais c'est pas de ça que je veux parler, c'était notre première balade nocturne, on s'était un peu baladé avant d'aller au cinéma, la nuit et les lumières sur la place ont donné une super ambiance, rajouté au moment que je vivais avec toi.\nEn sortant du cinéma, on a attendu le tram.\nOn voulait s'asseoir mais il n'y avait qu'une place.. alors tu t'es assise sur moi.\nTu faisais que de me dire que t'étais super lourde, alors que pas du tout, j'ai vraiment adoré ce moment, j'ai adoré notre complicité à cet instant, je pense que c'est à ce moment là que je me suis rendu compte que je ne pourrais jamais me séparer de toi.",
+        media: [
+          { type: 'image', src: 'photo6.jpg' },
+          { type: 'video', src: 'video2.mp4' }
+        ]
+      },
+      {
+        title: "Balade à Comédie + Centre commercial",
+        desc: "On est arrivés un peu tard, on a eu à peine 1h pour visiter, j'avoue que j'aurais aimé visiter un peu plus, on a fait pleins de magasins, j'ai adoré passer dans les rayons de la fnac avec l'amour de ma vie.\nOn regardait un peu de tout, même des trucs qui m'intéressaient pas forcément, tout ce que je voulais c'était profiter de ce moment avec toi.\nJ'ai adoré les petites bêtises qu'on a fait sur la tablette.. j'espère que notre \"anais + erwann = ❤️\" est toujours dans les notes.\nTu m'as un peu forcé à faire les photos.. si ça n'avait tenu qu'à moi je les aurais pas fait, et en fait je suis content que tu m'aies forcé, plus le temps passe et plus j'aime ces photos, on est tellement mignons dessus.\nEt quand on s'est posé, sur la place, c'est vraiment le moment que j'ai préféré avec toi, c'était simple, je pouvais gouter tes lèvres quand je le voulais, t'étais là juste devant moi, magnifique, comme tu l'as toujours été.\nLe nombre de gens qui nous regardaient bizarrement.. en temps normal ça m'aurait grave dérangé, mais je profitais tellement du moment avec toi que j'en avais vraiment rien à faire.",
+        media: [
+          { type: 'image', src: 'photo7.jpg' },
+          { type: 'image', src: 'photo8.jpg' },
+          { type: 'image', src: 'photo9.jpg' }
+        ]
+      },
+      {
+        title: "Palavas",
+        desc: "C'était une journée un peu dure.. car je savais que c'était la dernière journée complète que je passais en ta compagnie, j'ai essayé de le montrer le moins possible, mais ça me rendait malade que ça se finisse.\nPourtant j'ai passé une super journée, malgré la galère pour avoir des toilettes..\nJ'ai aimé le moment où on a mangé sur le banc, et après quand on est allé chercher la glace.\nJe me rappelle quand tu m'as dis \"tu peux demander\" parce que t'étais trop gênée, t'étais adorable.\nQuand on était sur le banc suspendu, ça se voyait que t'avais trop peur mon bébé t'étais trop chou, j'ai adoré comment tu me tenais la main.\nMalgré la chaleur étouffante, j'aurais aimé que cette journée ne se finisse jamais.",
+        media: [
+          { type: 'image', src: 'photo10.jpg' }
+        ]
+      }
+    ];
+
+    let current = 0;
+    let currentMedia = 0;
+
+    function renderCard(idx) {
+      const m = MOMENTS[idx];
+      document.getElementById('cardTitle').textContent = m.title;
+      document.getElementById('cardDesc').textContent = m.desc;
+
+      const wrapper = document.getElementById('mediaWrapper');
+      wrapper.innerHTML = '';
+      currentMedia = 0;
+
+      // Créer les médias
+      m.media.forEach(function(item, i) {
+        let el;
+        if (item.type === 'image') {
+          el = document.createElement('img');
+          el.src = item.src;
+          el.alt = m.title;
+        } else {
+          el = document.createElement('video');
+          el.src = item.src;
+          el.controls = true;
+          el.playsinline = true;
+        }
+        if (i === 0) el.classList.add('active');
+        if (item.src === 'photo4.jpg') el.style.objectPosition = 'bottom';
+        wrapper.appendChild(el);
+      });
+
+      // Flèches media si plusieurs
+      if (m.media.length > 1) {
+        const btnL = document.createElement('button');
+        btnL.className = 'media-nav left';
+        btnL.textContent = '‹';
+        btnL.onclick = function(e) { e.stopPropagation(); changeMedia(-1); };
+
+        const btnR = document.createElement('button');
+        btnR.className = 'media-nav right';
+        btnR.textContent = '›';
+        btnR.onclick = function(e) { e.stopPropagation(); changeMedia(1); };
+
+        wrapper.appendChild(btnL);
+        wrapper.appendChild(btnR);
+
+        // Points
+        const dots = document.createElement('div');
+        dots.className = 'media-dots';
+        dots.id = 'mediaDots';
+        m.media.forEach(function(_, i) {
+          const dot = document.createElement('div');
+          dot.className = 'media-dot' + (i === 0 ? ' active' : '');
+          dots.appendChild(dot);
+        });
+        wrapper.appendChild(dots);
+      }
+
+      // Counter
+      document.getElementById('counter').textContent = (idx + 1) + ' / ' + MOMENTS.length;
+      document.getElementById('btnPrev').disabled = idx === 0;
+      document.getElementById('btnNext').disabled = idx === MOMENTS.length - 1;
+      
+      const btnPageSuivante = document.getElementById('btnPageSuivante');
+      if (idx === MOMENTS.length - 1) {
+        btnPageSuivante.style.display = 'block';
+      } else {
+        btnPageSuivante.style.display = 'none';
+      }
+    }
+
+    function changeMedia(dir) {
+      const m = MOMENTS[current];
+      const medias = document.getElementById('mediaWrapper').querySelectorAll('img, video');
+      medias[currentMedia].classList.remove('active');
+      currentMedia = (currentMedia + dir + m.media.length) % m.media.length;
+      medias[currentMedia].classList.add('active');
+
+      const dots = document.getElementById('mediaDots');
+      if (dots) {
+        dots.querySelectorAll('.media-dot').forEach(function(d, i) {
+          d.classList.toggle('active', i === currentMedia);
+        });
+      }
+    }
+
+    function navigate(dir) {
+      const overlay = document.getElementById('fadeOverlay');
+      overlay.classList.add('active');
+      setTimeout(function() {
+        current += dir;
+        renderCard(current);
+        setTimeout(function() {
+          overlay.classList.remove('active');
+        }, 100);
+      }, 500);
+    }
+
+    renderCard(0);
+  </script>
 </body>
 </html>
