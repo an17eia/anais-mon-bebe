@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Pour Anaïs ❤️</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&display=swap" rel="stylesheet">
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'Playfair Display', serif;
+      background: url('photo2.jpg') center/cover no-repeat fixed;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 30px 20px;
+      gap: 24px;
+      overflow-x: hidden;
+    }
+
+    /* CŒURS */
+    .heart {
+      position: fixed;
+      top: -40px;
+      font-size: 1.4rem;
+      animation: fall linear infinite;
+      pointer-events: none;
+      z-index: 0;
+      opacity: 0.85;
+    }
+
+    @keyframes fall {
+      0%   { transform: translateY(0) rotate(0deg); opacity: 0.9; }
+      100% { transform: translateY(110vh) rotate(30deg); opacity: 0; }
+    }
+
+    /* CARTE MESSAGE */
+    .card {
+      background: rgba(255,255,255,0.78);
+      backdrop-filter: blur(8px);
+      border-radius: 24px;
+      box-shadow: 0 12px 40px rgba(0,0,0,0.2);
+      padding: 30px 28px;
+      width: 100%;
+      max-width: 420px;
+      text-align: center;
+      position: relative;
+      z-index: 1;
+      opacity: 0;
+      animation: fadeIn 1.5s ease forwards;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    .card-message {
+      font-size: 1.05rem;
+      color: #4a2030;
+      line-height: 1.85;
+      font-style: italic;
+    }
+
+    .card-message .highlight {
+      font-size: 1.2rem;
+      font-weight: 700;
+      color: #e8496e;
+      font-style: normal;
+    }
+
+    /* CARTE JEU */
+    .game-card {
+      background: rgba(255,255,255,0.78);
+      backdrop-filter: blur(8px);
+      border-radius: 24px;
+      box-shadow: 0 12px 40px rgba(0,0,0,0.2);
+      padding: 26px 28px;
+      width: 100%;
+      max-width: 420px;
+      text-align: center;
+      position: relative;
+      z-index: 1;
+      opacity: 0;
+      animation: fadeIn 1.5s ease 0.8s forwards;
+    }
+
+    .game-title {
+      font-size: 1rem;
+      color: #c2607a;
+      font-weight: 400;
+      margin-bottom: 20px;
+      font-style: italic;
+    }
+
+    .slider-value {
+      font-size: 3rem;
+      font-weight: 700;
+      color: #e8496e;
+      margin-bottom: 16px;
+      line-height: 1;
+    }
+
+    .slider-wrap {
+      position: relative;
+      margin-bottom: 20px;
+    }
+
+    input[type="range"] {
+      -webkit-appearance: none;
+      width: 100%;
+      height: 8px;
+      border-radius: 4px;
+      background: linear-gradient(to right, #e8496e 0%, #e8496e var(--val, 0%), #f0c0cc var(--val, 0%), #f0c0cc 100%);
+      outline: none;
+      cursor: pointer;
+    }
+
+    input[type="range"]::-webkit-slider-thumb {
+      -webkit-appearance: none;
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      background: white;
+      border: 3px solid #e8496e;
+      box-shadow: 0 2px 8px rgba(232,73,110,0.3);
+      cursor: pointer;
+      transition: transform 0.2s;
+    }
+
+    input[type="range"]::-webkit-slider-thumb:hover {
+      transform: scale(1.15);
+    }
+
+    .reveal-btn {
+      background: linear-gradient(135deg, #e8496e, #ff6b9a);
+      color: white;
+      border: none;
+      padding: 14px 32px;
+      border-radius: 14px;
+      font-size: 1.05rem;
+      font-family: 'Playfair Display', serif;
+      cursor: pointer;
+      box-shadow: 0 6px 20px rgba(232,73,110,0.4);
+      transition: transform 0.2s, opacity 0.3s;
+      width: 100%;
+      opacity: 0.3;
+      pointer-events: none;
+    }
+
+    .reveal-btn.unlocked {
+      opacity: 1;
+      pointer-events: all;
+      animation: pulse 1.5s ease-in-out infinite;
+    }
+
+    @keyframes pulse {
+      0%, 100% { transform: scale(1); }
+      50%       { transform: scale(1.03); }
+    }
+
+    /* MESSAGE FINAL */
+    .final-reveal {
+      background: rgba(255,255,255,0.78);
+      backdrop-filter: blur(8px);
+      border-radius: 24px;
+      box-shadow: 0 12px 40px rgba(0,0,0,0.2);
+      padding: 26px 28px;
+      width: 100%;
+      max-width: 420px;
+      text-align: center;
+      position: relative;
+      z-index: 1;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.8s ease;
+    }
+
+    .final-reveal.visible {
+      opacity: 1;
+      pointer-events: all;
+    }
+
+    .final-reveal p {
+      font-size: 1.2rem;
+      color: #4a2030;
+      font-style: italic;
+      line-height: 1.7;
+    }
+
+    .final-reveal .envelope {
+      font-size: 3rem;
+      margin-bottom: 14px;
+      display: block;
+      animation: float 2s ease-in-out infinite;
+    }
+
+    @keyframes float {
+      0%, 100% { transform: translateY(0); }
+      50%       { transform: translateY(-8px); }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- CARTE MESSAGE -->
+  <div class="card">
+    <p class="card-message">
+      Je pensais pas que mon cœur pouvait aimer autant.<br><br>
+      Merci d'être là pour moi comme tu le fais,
+      tu es la meilleure copine du monde.<br><br>
+      Même en rêve j'aurais jamais cru avoir quelqu'un
+      d'aussi exceptionnel que toi.<br><br>
+      Merci pour tout Anaïs.<br><br>
+      <span class="highlight">JE T'AIME ❤️</span>
+    </p>
+  </div>
+
+  <!-- CARTE JEU -->
+  <div class="game-card">
+    <p class="game-title">Combien de % tu m'aimes ?</p>
+    <div class="slider-value" id="sliderValue">0%</div>
+    <div class="slider-wrap">
+      <input type="range" id="slider" min="0" max="100" value="0" oninput="updateSlider(this.value)">
+    </div>
+    <button class="reveal-btn" id="revealBtn" onclick="reveal()">
+      Tu peux lire la lettre 💌
+    </button>
+  </div>
+
+  <!-- MESSAGE FINAL -->
+  <div class="final-reveal" id="finalReveal">
+    <span class="envelope">💌</span>
+    <p>Tu peux lire la lettre maintenant mon amour ❤️</p>
+  </div>
+
+  <script>
+    // CŒURS
+    const HEARTS = ['❤️', '🩷', '💕', '💗', '💓', '💖', '💝'];
+    function createHeart() {
+      const el = document.createElement('div');
+      el.className = 'heart';
+      el.textContent = HEARTS[Math.floor(Math.random() * HEARTS.length)];
+      el.style.left = Math.random() * 100 + 'vw';
+      el.style.fontSize = (Math.random() * 1.2 + 0.8) + 'rem';
+      const duration = Math.random() * 4 + 4;
+      el.style.animationDuration = duration + 's';
+      el.style.animationDelay = (Math.random() * 2) + 's';
+      document.body.appendChild(el);
+      setTimeout(function() { el.remove(); }, (duration + 2) * 1000);
+    }
+
+    for (let i = 0; i < 20; i++) setTimeout(createHeart, Math.random() * 2000);
+    setInterval(createHeart, 400);
+
+    // SLIDER
+    function updateSlider(val) {
+      document.getElementById('sliderValue').textContent = val + '%';
+      document.getElementById('slider').style.setProperty('--val', val + '%');
+      const btn = document.getElementById('revealBtn');
+      if (parseInt(val) === 100) {
+        btn.classList.add('unlocked');
+      } else {
+        btn.classList.remove('unlocked');
+      }
+    }
+
+    function reveal() {
+      document.querySelector('.game-card').style.opacity = '0';
+      document.querySelector('.game-card').style.transition = 'opacity 0.5s';
+      setTimeout(function() {
+        document.querySelector('.game-card').style.display = 'none';
+        document.getElementById('finalReveal').classList.add('visible');
+      }, 500);
+    }
+  </script>
+</body>
+</html>
