@@ -39,132 +39,60 @@
       to   { opacity: 1; transform: translateY(0); }
     }
 
-    .card-title {
-      font-size: 1.1rem;
-      color: #c2607a;
-      font-weight: 400;
-      margin-bottom: 6px;
-    }
+    .card-title { font-size: 1.1rem; color: #c2607a; font-weight: 400; margin-bottom: 6px; }
+    .card-subtitle { font-size: 0.82rem; color: #999; font-style: italic; margin-bottom: 20px; }
 
-    .card-subtitle {
-      font-size: 0.82rem;
-      color: #999;
-      font-style: italic;
-      margin-bottom: 20px;
-    }
-
-    /* CHOIX */
-    #choiceScreen {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 20px;
-    }
+    #choiceScreen { display: flex; flex-direction: column; align-items: center; gap: 20px; }
 
     .choice-title {
-      color: white;
-      font-size: 1.3rem;
-      font-style: italic;
+      color: white; font-size: 1.3rem; font-style: italic;
       text-shadow: 0 2px 12px rgba(0,0,0,0.5);
-      background: rgba(0,0,0,0.3);
-      padding: 12px 20px;
-      border-radius: 14px;
-      backdrop-filter: blur(4px);
+      background: rgba(0,0,0,0.3); padding: 12px 20px;
+      border-radius: 14px; backdrop-filter: blur(4px);
     }
 
-    .choice-buttons {
-      display: flex;
-      gap: 16px;
-    }
+    .choice-buttons { display: flex; gap: 16px; }
 
     .choice-btn {
-      background: #ff6b9a;
-      color: white;
-      border: none;
-      padding: 16px 36px;
-      border-radius: 14px;
-      font-size: 1.2rem;
-      font-family: 'Playfair Display', serif;
-      cursor: pointer;
-      box-shadow: 0 6px 20px rgba(255,107,154,0.4);
-      transition: transform 0.2s;
+      background: #ff6b9a; color: white; border: none;
+      padding: 16px 36px; border-radius: 14px; font-size: 1.2rem;
+      font-family: 'Playfair Display', serif; cursor: pointer;
+      box-shadow: 0 6px 20px rgba(255,107,154,0.4); transition: transform 0.2s;
     }
-
     .choice-btn:hover { transform: scale(1.06); }
     .choice-btn.erwann { background: #833ab4; box-shadow: 0 6px 20px rgba(131,58,180,0.4); }
 
-    #mainContent {
-      display: none;
-      flex-direction: column;
-      align-items: center;
-      gap: 20px;
-      width: 100%;
-    }
+    #mainContent { display: none; flex-direction: column; align-items: center; gap: 20px; width: 100%; }
 
-    /* COUNTDOWN */
-    .countdown {
-      display: flex;
-      justify-content: center;
-      gap: 12px;
-    }
-
+    .countdown { display: flex; justify-content: center; gap: 12px; }
     .countdown-block { display: flex; flex-direction: column; align-items: center; }
     .countdown-num { font-size: 2.2rem; font-weight: 700; color: #e8496e; line-height: 1; }
     .countdown-label { font-size: 0.65rem; color: #999; text-transform: uppercase; letter-spacing: 0.08em; margin-top: 4px; }
     .countdown-sep { font-size: 2rem; color: #e8496e; font-weight: 700; line-height: 1.1; }
 
-    /* STREAK */
     .streak-row { display: flex; align-items: center; justify-content: center; gap: 10px; margin-bottom: 4px; }
     .streak-icon { font-size: 2rem; }
     .streak-num { font-size: 2.5rem; font-weight: 700; color: #e8496e; line-height: 1; }
     .streak-label { font-size: 0.8rem; color: #999; font-style: italic; }
     .best-streak { font-size: 0.78rem; color: #c2607a; font-style: italic; margin-top: 4px; }
 
-    /* CODE */
-    .code-display {
-      font-size: 3.5rem;
-      font-weight: 700;
-      color: #e8496e;
-      letter-spacing: 0.2em;
-      margin-bottom: 6px;
-      font-family: monospace;
-    }
-
+    .code-display { font-size: 3.5rem; font-weight: 700; color: #e8496e; letter-spacing: 0.2em; margin-bottom: 6px; font-family: monospace; }
     .code-hint { font-size: 0.78rem; color: #999; font-style: italic; margin-bottom: 8px; }
     .role-label { font-size: 0.9rem; color: #555; margin-bottom: 14px; font-style: italic; }
 
     .code-input {
-      width: 100%;
-      padding: 12px;
-      border: 2px solid #f0c0cc;
-      border-radius: 12px;
-      font-size: 1.8rem;
-      font-family: monospace;
-      color: #444;
-      outline: none;
-      text-align: center;
-      letter-spacing: 0.2em;
-      transition: border-color 0.2s;
-      margin-bottom: 12px;
-      background: rgba(255,255,255,0.8);
+      width: 100%; padding: 12px; border: 2px solid #f0c0cc; border-radius: 12px;
+      font-size: 1.8rem; font-family: monospace; color: #444; outline: none;
+      text-align: center; letter-spacing: 0.2em; transition: border-color 0.2s;
+      margin-bottom: 12px; background: rgba(255,255,255,0.8);
     }
-
     .code-input:focus { border-color: #e8496e; }
 
     .submit-btn {
-      background: #ff6b9a;
-      color: white;
-      border: none;
-      padding: 13px 28px;
-      border-radius: 12px;
-      font-size: 1rem;
-      font-family: 'Playfair Display', serif;
-      cursor: pointer;
-      box-shadow: 0 4px 15px rgba(255,107,154,0.4);
-      width: 100%;
-      transition: transform 0.2s;
+      background: #ff6b9a; color: white; border: none; padding: 13px 28px;
+      border-radius: 12px; font-size: 1rem; font-family: 'Playfair Display', serif;
+      cursor: pointer; box-shadow: 0 4px 15px rgba(255,107,154,0.4); width: 100%; transition: transform 0.2s;
     }
-
     .submit-btn:hover { transform: scale(1.04); }
 
     .code-msg { font-size: 0.85rem; margin-top: 10px; min-height: 20px; font-style: italic; }
@@ -172,74 +100,39 @@
     .code-msg.error   { color: #e8496e; }
     .validated { font-size: 1rem; color: #4caf82; font-style: italic; }
 
-    /* TCHAT */
     .chat-box {
-      width: 100%;
-      height: 160px;
-      overflow-y: auto;
-      border: 1.5px solid #f0c0cc;
-      border-radius: 14px;
-      padding: 10px;
-      margin-bottom: 12px;
-      background: rgba(255,255,255,0.6);
-      display: flex;
-      flex-direction: column;
-      gap: 8px;
+      width: 100%; min-height: 60px; max-height: 160px; overflow-y: auto;
+      border: 1.5px solid #f0c0cc; border-radius: 14px; padding: 10px;
+      margin-bottom: 12px; background: rgba(255,255,255,0.6);
+      display: flex; flex-direction: column; gap: 8px;
     }
 
     .chat-msg {
-      padding: 8px 12px;
-      border-radius: 12px;
-      font-size: 0.9rem;
-      max-width: 80%;
-      font-family: monospace;
-      font-weight: 700;
-      letter-spacing: 0.1em;
+      padding: 8px 12px; border-radius: 12px; font-size: 1rem;
+      max-width: 80%; font-family: monospace; font-weight: 700; letter-spacing: 0.1em;
     }
+    .chat-msg.sent { background: linear-gradient(135deg,#833ab4,#c13584); color: white; align-self: flex-end; border-bottom-right-radius: 4px; }
+    .chat-msg.received { background: linear-gradient(135deg,#ff6b6b,#ff0080); color: white; align-self: flex-start; border-bottom-left-radius: 4px; }
 
-    .chat-msg.sent {
-      background: linear-gradient(135deg, #833ab4, #c13584);
-      color: white;
-      align-self: flex-end;
-      border-bottom-right-radius: 4px;
+    .chat-input-row { display: none; gap: 8px; margin-top: 4px; }
+    .chat-text-input {
+      flex: 1; padding: 10px 14px; border: 2px solid #f0c0cc; border-radius: 12px;
+      font-size: 1.1rem; font-family: monospace; letter-spacing: 0.2em; outline: none;
+      background: rgba(255,255,255,0.8); color: #444;
     }
-
-    .chat-msg.received {
-      background: linear-gradient(135deg, #ff6b6b, #ff0080);
-      color: white;
-      align-self: flex-start;
-      border-bottom-left-radius: 4px;
-    }
-
-    .chat-empty {
-      font-size: 0.8rem;
-      color: #bbb;
-      font-style: italic;
-      text-align: center;
-      margin: auto;
-    }
+    .chat-text-input:focus { border-color: #e8496e; }
 
     .send-btn {
-      background: #ff6b9a;
-      color: white;
-      border: none;
-      padding: 11px 20px;
-      border-radius: 12px;
-      font-size: 1rem;
-      font-family: 'Playfair Display', serif;
-      cursor: pointer;
-      box-shadow: 0 4px 15px rgba(255,107,154,0.4);
-      width: 100%;
-      transition: transform 0.2s;
+      background: #ff6b9a; color: white; border: none; padding: 10px 18px;
+      border-radius: 12px; font-size: 1rem; font-family: 'Playfair Display', serif;
+      cursor: pointer; box-shadow: 0 4px 15px rgba(255,107,154,0.4); transition: transform 0.2s;
     }
-
     .send-btn:hover { transform: scale(1.04); }
     .send-btn:disabled { opacity: 0.4; cursor: not-allowed; }
   </style>
 </head>
 <body>
 
-  <!-- ECRAN DE CHOIX -->
   <div id="choiceScreen">
     <p class="choice-title">Qui es-tu ? 💕</p>
     <div class="choice-buttons">
@@ -248,17 +141,14 @@
     </div>
   </div>
 
-  <!-- CONTENU PRINCIPAL -->
   <div id="mainContent">
 
-    <!-- COMPTE À REBOURS -->
     <div class="card">
       <p class="card-title">Notre prochain rendez-vous 🗓️</p>
       <p class="card-subtitle">Le 24 octobre 2026</p>
       <div class="countdown" id="countdown"></div>
     </div>
 
-    <!-- STREAK -->
     <div class="card">
       <p class="card-title">Notre streak 🔥</p>
       <div class="streak-row">
@@ -269,18 +159,15 @@
       <p class="best-streak" id="bestStreak">Meilleur score : ...</p>
     </div>
 
-    <!-- CODE DU JOUR -->
     <div class="card">
       <p class="card-title">Code du jour 🔐</p>
 
-      <!-- Celui qui donne le code -->
       <div id="codeGiver" style="display:none;">
         <p class="role-label">Ton code du jour :</p>
         <div class="code-display" id="codeDisplay"></div>
         <p class="code-hint">Envoie-le dans le tchat ci-dessous 💌</p>
       </div>
 
-      <!-- Celui qui entre le code -->
       <div id="codeReceiver" style="display:none;">
         <p class="role-label">Entre le code reçu :</p>
         <input class="code-input" id="codeInput" type="number" placeholder="····" />
@@ -288,24 +175,17 @@
         <p class="code-msg" id="codeMsg"></p>
       </div>
 
-      <!-- Déjà validé -->
       <div id="validatedMsg" style="display:none;">
         <p class="validated">✅ Validé aujourd'hui ! À demain mon amour 🥰</p>
       </div>
     </div>
 
-    <!-- TCHAT -->
     <div class="card">
       <p class="card-title">Mets ton code ici 💬</p>
-      <div class="chat-box" id="chatBox">
-
-      </div>
-      <div id="chatInputArea" style="display:none; display:flex; gap:8px; margin-top:4px;">
-        <input type="text" id="chatInput" placeholder="Ton code..." maxlength="4"
-          style="flex:1; padding:10px 14px; border:2px solid #f0c0cc; border-radius:12px; font-size:1.1rem; font-family:monospace; letter-spacing:0.2em; outline:none; background:rgba(255,255,255,0.8); color:#444;" />
-        <button class="send-btn" id="sendBtn" onclick="sendCode()" style="width:auto; padding:10px 18px;">
-          Envoyer
-        </button>
+      <div class="chat-box" id="chatBox"></div>
+      <div class="chat-input-row" id="chatInputArea">
+        <input type="text" id="chatInput" class="chat-text-input" placeholder="Ton code..." maxlength="4" />
+        <button class="send-btn" id="sendBtn" onclick="sendCode()">Envoyer</button>
       </div>
     </div>
 
@@ -335,22 +215,18 @@
       return String(((seed * 9301 + 49297) % 233280) % 9000 + 1000);
     }
 
-    // COMPTE À REBOURS
     function updateCountdown() {
       const target = new Date('2026-10-24T00:00:00');
       const now = new Date();
       const diff = target - now;
-
       if (diff <= 0) {
         document.getElementById('countdown').innerHTML = '<span style="color:#e8496e;font-size:1.2rem">C\'est aujourd\'hui ! 🥰</span>';
         return;
       }
-
       const days    = Math.floor(diff / (1000*60*60*24));
       const hours   = Math.floor((diff % (1000*60*60*24)) / (1000*60*60));
       const minutes = Math.floor((diff % (1000*60*60)) / (1000*60));
       const seconds = Math.floor((diff % (1000*60)) / 1000);
-
       document.getElementById('countdown').innerHTML =
         '<div class="countdown-block"><div class="countdown-num">' + days + '</div><div class="countdown-label">jours</div></div>' +
         '<div class="countdown-sep">:</div>' +
@@ -370,7 +246,6 @@
       document.getElementById('mainContent').style.display = 'flex';
       loadData();
       loadChat();
-      // Rafraîchir le tchat toutes les 5 secondes
       setInterval(loadChat, 5000);
     }
 
@@ -419,7 +294,6 @@
     async function loadChat() {
       const today = todayStr();
       let { data } = await client.from('soir').select('code_sent, code_sender').eq('date', today).single();
-
       const chatBox = document.getElementById('chatBox');
 
       if (data && data.code_sent) {
@@ -430,13 +304,12 @@
         msg.textContent = data.code_sent;
         chatBox.appendChild(msg);
 
-        // Si je reçois le code, le mettre automatiquement dans le champ
         if (!isSender) {
           const input = document.getElementById('codeInput');
           if (input) input.value = data.code_sent;
         }
       } else {
-        chatBox.innerHTML = '<p class="chat-empty">Aucun message pour aujourd\'hui...</p>';
+        chatBox.innerHTML = '';
       }
     }
 
@@ -446,7 +319,6 @@
       if (!val) return;
 
       const today = todayStr();
-
       await client.from('soir').upsert({
         date: today,
         code_sent: val,
