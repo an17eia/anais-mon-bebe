@@ -298,11 +298,15 @@
     <div class="card">
       <p class="card-title">Mets ton code ici 💬</p>
       <div class="chat-box" id="chatBox">
-        <p class="chat-empty">Aucun message pour aujourd'hui...</p>
+
       </div>
-      <button class="send-btn" id="sendBtn" onclick="sendCode()" style="display:none;">
-        Envoyer mon code 📤
-      </button>
+      <div id="chatInputArea" style="display:none; display:flex; gap:8px; margin-top:4px;">
+        <input type="text" id="chatInput" placeholder="Ton code..." maxlength="4"
+          style="flex:1; padding:10px 14px; border:2px solid #f0c0cc; border-radius:12px; font-size:1.1rem; font-family:monospace; letter-spacing:0.2em; outline:none; background:rgba(255,255,255,0.8); color:#444;" />
+        <button class="send-btn" id="sendBtn" onclick="sendCode()" style="width:auto; padding:10px 18px;">
+          Envoyer
+        </button>
+      </div>
     </div>
 
   </div>
@@ -406,7 +410,7 @@
       if (iAmGiving) {
         document.getElementById('codeGiver').style.display = 'block';
         document.getElementById('codeDisplay').textContent = getDailyCode();
-        document.getElementById('sendBtn').style.display = 'block';
+        document.getElementById('chatInputArea').style.display = 'flex';
       } else {
         document.getElementById('codeReceiver').style.display = 'block';
       }
@@ -437,17 +441,21 @@
     }
 
     async function sendCode() {
-      const code = getDailyCode();
+      const input = document.getElementById('chatInput');
+      const val = input.value.trim();
+      if (!val) return;
+
       const today = todayStr();
 
       await client.from('soir').upsert({
         date: today,
-        code_sent: code,
+        code_sent: val,
         code_sender: currentUser
       }, { onConflict: 'date' });
 
+      input.value = '';
       document.getElementById('sendBtn').disabled = true;
-      document.getElementById('sendBtn').textContent = 'Code envoyé ✓';
+      document.getElementById('sendBtn').textContent = 'Envoyé ✓';
       loadChat();
     }
 
