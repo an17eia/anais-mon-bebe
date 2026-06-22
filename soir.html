@@ -5,6 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Code 🔐</title>
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&display=swap" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
   <style>
     * { box-sizing: border-box; margin: 0; padding: 0; }
 
@@ -52,85 +53,74 @@
       margin-bottom: 20px;
     }
 
+    /* CHOIX */
+    #choiceScreen {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 20px;
+    }
+
+    .choice-title {
+      color: white;
+      font-size: 1.3rem;
+      font-style: italic;
+      text-shadow: 0 2px 12px rgba(0,0,0,0.5);
+      background: rgba(0,0,0,0.3);
+      padding: 12px 20px;
+      border-radius: 14px;
+      backdrop-filter: blur(4px);
+    }
+
+    .choice-buttons {
+      display: flex;
+      gap: 16px;
+    }
+
+    .choice-btn {
+      background: #ff6b9a;
+      color: white;
+      border: none;
+      padding: 16px 36px;
+      border-radius: 14px;
+      font-size: 1.2rem;
+      font-family: 'Playfair Display', serif;
+      cursor: pointer;
+      box-shadow: 0 6px 20px rgba(255,107,154,0.4);
+      transition: transform 0.2s;
+    }
+
+    .choice-btn:hover { transform: scale(1.06); }
+    .choice-btn.erwann { background: #833ab4; box-shadow: 0 6px 20px rgba(131,58,180,0.4); }
+
+    #mainContent {
+      display: none;
+      flex-direction: column;
+      align-items: center;
+      gap: 20px;
+      width: 100%;
+    }
+
+    /* COUNTDOWN */
     .countdown {
       display: flex;
       justify-content: center;
       gap: 12px;
-      margin-bottom: 6px;
     }
 
-    .countdown-block {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-    }
+    .countdown-block { display: flex; flex-direction: column; align-items: center; }
+    .countdown-num { font-size: 2.2rem; font-weight: 700; color: #e8496e; line-height: 1; }
+    .countdown-label { font-size: 0.65rem; color: #999; text-transform: uppercase; letter-spacing: 0.08em; margin-top: 4px; }
+    .countdown-sep { font-size: 2rem; color: #e8496e; font-weight: 700; line-height: 1.1; }
 
-    .countdown-num {
-      font-size: 2.2rem;
-      font-weight: 700;
-      color: #e8496e;
-      line-height: 1;
-    }
-
-    .countdown-label {
-      font-size: 0.65rem;
-      color: #999;
-      text-transform: uppercase;
-      letter-spacing: 0.08em;
-      margin-top: 4px;
-    }
-
-    .countdown-sep {
-      font-size: 2rem;
-      color: #e8496e;
-      font-weight: 700;
-      line-height: 1.1;
-    }
-
-    .next-date {
-      font-size: 0.8rem;
-      color: #c2607a;
-      font-style: italic;
-      margin-top: 8px;
-    }
-
-    .streak-row {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 10px;
-      margin-bottom: 4px;
-    }
-
+    /* STREAK */
+    .streak-row { display: flex; align-items: center; justify-content: center; gap: 10px; margin-bottom: 4px; }
     .streak-icon { font-size: 2rem; }
+    .streak-num { font-size: 2.5rem; font-weight: 700; color: #e8496e; line-height: 1; }
+    .streak-label { font-size: 0.8rem; color: #999; font-style: italic; }
+    .best-streak { font-size: 0.78rem; color: #c2607a; font-style: italic; margin-top: 4px; }
 
-    .streak-num {
-      font-size: 2.5rem;
-      font-weight: 700;
-      color: #e8496e;
-      line-height: 1;
-    }
-
-    .streak-label {
-      font-size: 0.8rem;
-      color: #999;
-      font-style: italic;
-    }
-
-    .best-streak {
-      font-size: 0.78rem;
-      color: #c2607a;
-      font-style: italic;
-      margin-top: 4px;
-    }
-
-    .role-label {
-      font-size: 0.9rem;
-      color: #555;
-      margin-bottom: 14px;
-      font-style: italic;
-    }
-
+    /* CODE */
     .code-display {
       font-size: 3.5rem;
       font-weight: 700;
@@ -140,12 +130,8 @@
       font-family: monospace;
     }
 
-    .code-hint {
-      font-size: 0.78rem;
-      color: #999;
-      font-style: italic;
-      margin-bottom: 20px;
-    }
+    .code-hint { font-size: 0.78rem; color: #999; font-style: italic; margin-bottom: 8px; }
+    .role-label { font-size: 0.9rem; color: #555; margin-bottom: 14px; font-style: italic; }
 
     .code-input {
       width: 100%;
@@ -181,81 +167,152 @@
 
     .submit-btn:hover { transform: scale(1.04); }
 
-    .code-msg {
-      font-size: 0.85rem;
-      margin-top: 10px;
-      min-height: 20px;
-      font-style: italic;
-    }
-
+    .code-msg { font-size: 0.85rem; margin-top: 10px; min-height: 20px; font-style: italic; }
     .code-msg.success { color: #4caf82; }
     .code-msg.error   { color: #e8496e; }
+    .validated { font-size: 1rem; color: #4caf82; font-style: italic; }
 
-    .validated {
-      font-size: 1rem;
-      color: #4caf82;
+    /* TCHAT */
+    .chat-box {
+      width: 100%;
+      height: 160px;
+      overflow-y: auto;
+      border: 1.5px solid #f0c0cc;
+      border-radius: 14px;
+      padding: 10px;
+      margin-bottom: 12px;
+      background: rgba(255,255,255,0.6);
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .chat-msg {
+      padding: 8px 12px;
+      border-radius: 12px;
+      font-size: 0.9rem;
+      max-width: 80%;
+      font-family: monospace;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+    }
+
+    .chat-msg.sent {
+      background: linear-gradient(135deg, #833ab4, #c13584);
+      color: white;
+      align-self: flex-end;
+      border-bottom-right-radius: 4px;
+    }
+
+    .chat-msg.received {
+      background: linear-gradient(135deg, #ff6b6b, #ff0080);
+      color: white;
+      align-self: flex-start;
+      border-bottom-left-radius: 4px;
+    }
+
+    .chat-empty {
+      font-size: 0.8rem;
+      color: #bbb;
       font-style: italic;
-      margin-top: 10px;
+      text-align: center;
+      margin: auto;
     }
 
-    .divider {
+    .send-btn {
+      background: #ff6b9a;
+      color: white;
       border: none;
-      border-top: 1px solid #f0c0cc;
-      margin: 16px 0;
+      padding: 11px 20px;
+      border-radius: 12px;
+      font-size: 1rem;
+      font-family: 'Playfair Display', serif;
+      cursor: pointer;
+      box-shadow: 0 4px 15px rgba(255,107,154,0.4);
+      width: 100%;
+      transition: transform 0.2s;
     }
+
+    .send-btn:hover { transform: scale(1.04); }
+    .send-btn:disabled { opacity: 0.4; cursor: not-allowed; }
   </style>
 </head>
 <body>
 
-  <!-- COMPTE À REBOURS -->
-  <div class="card">
-    <p class="card-title">Notre prochain rendez-vous 🗓️</p>
-    <p class="card-subtitle">Le 24 octobre 2026</p>
-    <div class="countdown" id="countdown"></div>
-
+  <!-- ECRAN DE CHOIX -->
+  <div id="choiceScreen">
+    <p class="choice-title">Qui es-tu ? 💕</p>
+    <div class="choice-buttons">
+      <button class="choice-btn" onclick="chooseUser('anais')">Anaïs</button>
+      <button class="choice-btn erwann" onclick="chooseUser('erwann')">Erwann</button>
+    </div>
   </div>
 
-  <!-- STREAK -->
-  <div class="card">
-    <p class="card-title">Notre streak 🔥</p>
-    <div class="streak-row">
-      <span class="streak-icon">🔥</span>
-      <span class="streak-num" id="streakNum">0</span>
-    </div>
-    <p class="streak-label">jours d'affilée</p>
-    <p class="best-streak" id="bestStreak">Meilleur score : 0 jour</p>
-  </div>
+  <!-- CONTENU PRINCIPAL -->
+  <div id="mainContent">
 
-  <!-- CODE DU JOUR -->
-  <div class="card">
-    <p class="card-title" id="roleTitle">Code du jour 🔐</p>
-
-    <!-- Affichage du code -->
-    <div id="codeGiver">
-      <p class="role-label" id="giverLabel"></p>
-      <div class="code-display" id="codeDisplay"></div>
-      <p class="code-hint">Envoie ce code ce soir 💌</p>
-      <hr class="divider">
+    <!-- COMPTE À REBOURS -->
+    <div class="card">
+      <p class="card-title">Notre prochain rendez-vous 🗓️</p>
+      <p class="card-subtitle">Le 24 octobre 2026</p>
+      <div class="countdown" id="countdown"></div>
     </div>
 
-    <!-- Saisie du code -->
-    <div id="codeReceiver">
-      <p class="role-label" id="receiverLabel"></p>
-      <input class="code-input" id="codeInput" type="number" placeholder="····" />
-      <button class="submit-btn" onclick="checkCode()">Valider ✓</button>
-      <p class="code-msg" id="codeMsg"></p>
+    <!-- STREAK -->
+    <div class="card">
+      <p class="card-title">Notre streak 🔥</p>
+      <div class="streak-row">
+        <span class="streak-icon">🔥</span>
+        <span class="streak-num" id="streakNum">...</span>
+      </div>
+      <p class="streak-label">jours d'affilée</p>
+      <p class="best-streak" id="bestStreak">Meilleur score : ...</p>
     </div>
 
-    <p class="validated" id="validatedMsg" style="display:none;">✅ Validé aujourd'hui ! À demain mon amour 🥰</p>
+    <!-- CODE DU JOUR -->
+    <div class="card">
+      <p class="card-title">Code du jour 🔐</p>
+
+      <!-- Celui qui donne le code -->
+      <div id="codeGiver" style="display:none;">
+        <p class="role-label">Ton code du jour :</p>
+        <div class="code-display" id="codeDisplay"></div>
+        <p class="code-hint">Envoie-le dans le tchat ci-dessous 💌</p>
+      </div>
+
+      <!-- Celui qui entre le code -->
+      <div id="codeReceiver" style="display:none;">
+        <p class="role-label">Entre le code reçu :</p>
+        <input class="code-input" id="codeInput" type="number" placeholder="····" />
+        <button class="submit-btn" onclick="checkCode()">Valider ✓</button>
+        <p class="code-msg" id="codeMsg"></p>
+      </div>
+
+      <!-- Déjà validé -->
+      <div id="validatedMsg" style="display:none;">
+        <p class="validated">✅ Validé aujourd'hui ! À demain mon amour 🥰</p>
+      </div>
+    </div>
+
+    <!-- TCHAT -->
+    <div class="card">
+      <p class="card-title">Mets ton code ici 💬</p>
+      <div class="chat-box" id="chatBox">
+        <p class="chat-empty">Aucun message pour aujourd'hui...</p>
+      </div>
+      <button class="send-btn" id="sendBtn" onclick="sendCode()" style="display:none;">
+        Envoyer mon code 📤
+      </button>
+    </div>
+
   </div>
 
   <script>
-    function getStorage(key) {
-      try { return JSON.parse(localStorage.getItem(key)); } catch(e) { return null; }
-    }
-    function setStorage(key, val) {
-      try { localStorage.setItem(key, JSON.stringify(val)); } catch(e) {}
-    }
+    const SUPABASE_URL = 'https://anepjxpzyvgmljgypicl.supabase.co';
+    const SUPABASE_KEY = 'sb_publishable_0X35Q3YLWwrF49u67b-tFw_6Y6rXn-u';
+    const client = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+
+    let currentUser = null;
 
     function todayStr() {
       const d = new Date();
@@ -266,6 +323,12 @@
       const d = new Date();
       d.setDate(d.getDate() - 1);
       return d.getFullYear() + '-' + (d.getMonth()+1) + '-' + d.getDate();
+    }
+
+    function getDailyCode() {
+      const d = new Date();
+      const seed = d.getFullYear() * 10000 + (d.getMonth()+1) * 100 + d.getDate();
+      return String(((seed * 9301 + 49297) % 233280) % 9000 + 1000);
     }
 
     // COMPTE À REBOURS
@@ -297,75 +360,138 @@
     setInterval(updateCountdown, 1000);
     updateCountdown();
 
-    // STREAK
-    function loadStreak() {
-      const streak = getStorage('streak') || 0;
-      const best   = getStorage('bestStreak') || 0;
+    function chooseUser(user) {
+      currentUser = user;
+      document.getElementById('choiceScreen').style.display = 'none';
+      document.getElementById('mainContent').style.display = 'flex';
+      loadData();
+      loadChat();
+      // Rafraîchir le tchat toutes les 5 secondes
+      setInterval(loadChat, 5000);
+    }
+
+    async function loadData() {
+      const today = todayStr();
+      const yesterday = yesterdayStr();
+
+      let { data } = await client.from('soir').select('*').eq('date', today).single();
+      let { data: yesterdayData } = await client.from('soir').select('*').eq('date', yesterday).single();
+
+      let streak = 0;
+      let bestStreak = 0;
+
+      if (yesterdayData && yesterdayData.validated) {
+        streak = yesterdayData.streak || 0;
+        bestStreak = yesterdayData.best_streak || 0;
+      }
+
+      if (data) {
+        streak = data.streak || streak;
+        bestStreak = data.best_streak || bestStreak;
+        if (data.validated) {
+          document.getElementById('streakNum').textContent = streak;
+          document.getElementById('bestStreak').textContent = 'Meilleur score : ' + bestStreak + ' jour' + (bestStreak > 1 ? 's' : '');
+          document.getElementById('validatedMsg').style.display = 'block';
+          return;
+        }
+      }
+
       document.getElementById('streakNum').textContent = streak;
-      document.getElementById('bestStreak').textContent = 'Meilleur score : ' + best + ' jour' + (best > 1 ? 's' : '');
-    }
+      document.getElementById('bestStreak').textContent = 'Meilleur score : ' + bestStreak + ' jour' + (bestStreak > 1 ? 's' : '');
 
-    function incrementStreak() {
-      const lastValidated = getStorage('lastValidated');
-      let streak = getStorage('streak') || 0;
-      let best   = getStorage('bestStreak') || 0;
-      if (lastValidated === yesterdayStr()) {
-        streak++;
-      } else if (lastValidated !== todayStr()) {
-        streak = 1;
-      }
-      if (streak > best) best = streak;
-      setStorage('streak', streak);
-      setStorage('bestStreak', best);
-      setStorage('lastValidated', todayStr());
-      loadStreak();
-    }
+      const dayOfMonth = new Date().getDate();
+      const isErwannGiving = dayOfMonth % 2 !== 0;
+      const iAmGiving = (isErwannGiving && currentUser === 'erwann') || (!isErwannGiving && currentUser === 'anais');
 
-    loadStreak();
-
-    // CODE DU JOUR
-    function getDailyCode() {
-      const d = new Date();
-      const seed = d.getFullYear() * 10000 + (d.getMonth()+1) * 100 + d.getDate();
-      return String(((seed * 9301 + 49297) % 233280) % 9000 + 1000);
-    }
-
-    const dayOfMonth = new Date().getDate();
-    const isErwannGiving = dayOfMonth % 2 !== 0; // impair = Erwann donne le code
-    const alreadyValidated = getStorage('lastValidated') === todayStr();
-
-    if (alreadyValidated) {
-      document.getElementById('codeGiver').style.display = 'none';
-      document.getElementById('codeReceiver').style.display = 'none';
-      document.getElementById('validatedMsg').style.display = 'block';
-    } else {
-      document.getElementById('codeDisplay').textContent = getDailyCode();
-      if (isErwannGiving) {
-        document.getElementById('giverLabel').textContent = 'Ton code à donner à Anaïs :';
-        document.getElementById('receiverLabel').textContent = 'Anaïs, entre le code qu\'Erwann t\'a envoyé :';
+      if (iAmGiving) {
+        document.getElementById('codeGiver').style.display = 'block';
+        document.getElementById('codeDisplay').textContent = getDailyCode();
+        document.getElementById('sendBtn').style.display = 'block';
       } else {
-        document.getElementById('giverLabel').textContent = 'Ton code à donner à Erwann :';
-        document.getElementById('receiverLabel').textContent = 'Erwann, entre le code qu\'Anaïs t\'a envoyé :';
+        document.getElementById('codeReceiver').style.display = 'block';
       }
     }
 
-    function checkCode() {
+    async function loadChat() {
+      const today = todayStr();
+      let { data } = await client.from('soir').select('code_sent, code_sender').eq('date', today).single();
+
+      const chatBox = document.getElementById('chatBox');
+
+      if (data && data.code_sent) {
+        const isSender = data.code_sender === currentUser;
+        chatBox.innerHTML = '';
+        const msg = document.createElement('div');
+        msg.className = 'chat-msg ' + (isSender ? 'sent' : 'received');
+        msg.textContent = data.code_sent;
+        chatBox.appendChild(msg);
+
+        // Si je reçois le code, le mettre automatiquement dans le champ
+        if (!isSender) {
+          const input = document.getElementById('codeInput');
+          if (input) input.value = data.code_sent;
+        }
+      } else {
+        chatBox.innerHTML = '<p class="chat-empty">Aucun message pour aujourd\'hui...</p>';
+      }
+    }
+
+    async function sendCode() {
+      const code = getDailyCode();
+      const today = todayStr();
+
+      await client.from('soir').upsert({
+        date: today,
+        code_sent: code,
+        code_sender: currentUser
+      }, { onConflict: 'date' });
+
+      document.getElementById('sendBtn').disabled = true;
+      document.getElementById('sendBtn').textContent = 'Code envoyé ✓';
+      loadChat();
+    }
+
+    async function checkCode() {
       const val = document.getElementById('codeInput').value.trim();
       const msg = document.getElementById('codeMsg');
-      if (val === getDailyCode()) {
-        msg.textContent = 'Bonne nuit mon amour 🥰';
-        msg.className = 'code-msg success';
-        incrementStreak();
-        setTimeout(function() {
-          document.getElementById('codeGiver').style.display = 'none';
-          document.getElementById('codeReceiver').style.display = 'none';
-          document.getElementById('codeMsg').style.display = 'none';
-          document.getElementById('validatedMsg').style.display = 'block';
-        }, 1200);
-      } else {
+
+      if (val !== getDailyCode()) {
         msg.textContent = 'Ce n\'est pas le bon code.. 🥺';
         msg.className = 'code-msg error';
+        return;
       }
+
+      msg.textContent = 'Bonne nuit mon amour 🥰';
+      msg.className = 'code-msg success';
+
+      const today = todayStr();
+      const yesterday = yesterdayStr();
+
+      let { data: yesterdayData } = await client.from('soir').select('*').eq('date', yesterday).single();
+      let newStreak = 1;
+      let bestStreak = 0;
+
+      if (yesterdayData && yesterdayData.validated) {
+        newStreak = (yesterdayData.streak || 0) + 1;
+        bestStreak = yesterdayData.best_streak || 0;
+      }
+
+      if (newStreak > bestStreak) bestStreak = newStreak;
+
+      await client.from('soir').upsert({
+        date: today,
+        streak: newStreak,
+        best_streak: bestStreak,
+        validated: true
+      }, { onConflict: 'date' });
+
+      document.getElementById('streakNum').textContent = newStreak;
+      document.getElementById('bestStreak').textContent = 'Meilleur score : ' + bestStreak + ' jour' + (bestStreak > 1 ? 's' : '');
+
+      setTimeout(function() {
+        document.getElementById('codeReceiver').style.display = 'none';
+        document.getElementById('validatedMsg').style.display = 'block';
+      }, 1200);
     }
 
     document.addEventListener('keydown', function(e) {
